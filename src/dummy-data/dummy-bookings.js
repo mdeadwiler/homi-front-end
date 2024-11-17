@@ -1,4 +1,4 @@
-const dummyBookings = [
+export const dummyBookings = [
   {
     prop: 4,
     guest: 1,
@@ -100,5 +100,3 @@ const dummyBookings = [
     credit_card: 3525268276721720,
   },
 ];
-
-export default dummyBookings;
