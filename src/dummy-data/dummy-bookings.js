@@ -1,4 +1,4 @@
-const bookings = [
+const dummyBookings = [
     {
         "prop": 4,
         "guest": 1,
@@ -101,4 +101,4 @@ const bookings = [
     }
 ]
 
-export default bookings
+export default dummyBookings

@@ -1,4 +1,4 @@
-const properties = [
+const dummyProperties = [
     {
         "title": "House in New York, NY",
         "user": 1,
@@ -120,7 +120,7 @@ const properties = [
     }
 ]
 
-const addresses = [
+const dummyAddresses = [
     {
         "prop": 1,
         "street": "9656 Main St",
@@ -185,4 +185,4 @@ const addresses = [
 
 // TODO: photos
 
-export { properties, addresses }
+export { dummyProperties, dummyAddresses }
