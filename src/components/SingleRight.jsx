@@ -11,3 +11,4 @@ export const SingleRight = () => {
     </>
   )
 }
+// Waiting on map and backend to fetch amentities
