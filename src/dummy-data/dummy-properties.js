@@ -1,5 +1,6 @@
 const dummyProperties = [
     {
+        "id": 1,
         "title": "House in New York, NY",
         "user": 1,
         "description": "This is a description for Property 1.",
@@ -22,6 +23,7 @@ const dummyProperties = [
         "cancellation_policy": "Non-Refundable"
     },
     {
+        "id": 2,
         "title": "House in Los Angeles, CA",
         "user": 1,
         "description": "This is a description for Property 2.",
@@ -39,6 +41,7 @@ const dummyProperties = [
         "cancellation_policy": "Moderate"
     },
     {
+        "id": 3,
         "title": "House in Austin, TX",
         "user": 1,
         "description": "This is a description for Property 3.",
@@ -58,6 +61,7 @@ const dummyProperties = [
         "cancellation_policy": "Non-Refundable"
     },
     {
+        "id": 4,
         "title": "House in Seattle, WA",
         "user": 1,
         "description": "This is a description for Property 4.",
@@ -79,6 +83,7 @@ const dummyProperties = [
         "cancellation_policy": "Flexible"
     },
     {
+        "id": 5,
         "title": "House in Chicago, IL",
         "user": 1,
         "description": "This is a description for Property 5.",
@@ -102,6 +107,7 @@ const dummyProperties = [
         "cancellation_policy": "Super Strict 60 Days"
     },
     {
+        "id": 6,
         "title": "House in Austin, TX",
         "user": 1,
         "description": "This is a description for Property 6.",
@@ -119,6 +125,7 @@ const dummyProperties = [
         "cancellation_policy": "Super Strict 60 Days"
     }
 ]
+
 
 const dummyAddresses = [
     {
@@ -182,7 +189,5 @@ const dummyAddresses = [
         "longitude": -124.294191
     }
 ]
-
-// TODO: photos
 
 export { dummyProperties, dummyAddresses }
