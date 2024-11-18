@@ -11,7 +11,7 @@ export const MyUserInfo = () => {
   };
 
   return (
-    <div className="max-w-sm mx-auto p-6 bg-white shadow-lg rounded-lg flex flex-col items-center">
+    <div className="max-w-sm mx-auto p-6 bg-white flex flex-col items-center">
       <img
         src={profile.profile_pic}
         alt="Profile"
