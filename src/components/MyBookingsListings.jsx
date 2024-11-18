@@ -9,7 +9,7 @@ export const HostBookings = () => {
 
   return (
     <div className="max-w-md mx-auto mt-10">
-      <h1 className="text-2xl  mb-4 text-center">Bookings of my listings</h1>
+      <h1 className="text-2xl mb-4 text-center">Bookings of my listings</h1>
       <div className="flex flex-col space-y-4">
         {hostBookings.map((booking) => (
           <div
