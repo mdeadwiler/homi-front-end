@@ -7,35 +7,35 @@ const teamMembers = [
     name: "Rani",
     role: "Project Manager",
     description: "Passionate about creating dynamic user experiences.",
-    photo: "rani.jpeg",
+    photo: "../images/rani.jpeg",
     github: "https://github.com/rbungay", // GitHub profile link
   },
   {
     name: "Zaire",
     role: "Frontend Developer",
     description: "Skilled in creating interactive interfaces.",
-    photo: "zaire.jpeg",
+    photo: "../images/zaire.jpeg",
     github: "https://github.com/zjyezaire", // GitHub profile link
   },
   {
     name: "Polina",
     role: "Back-End Manager",
     description: "Loves designing seamless web experiences.",
-    photo: "polina.jpeg",
+    photo: "../images/polina.jpeg",
     github: "https://github.com/realpolya", // GitHub profile link
   },
   {
     name: "Marquise Deadwiler",
     role: "Front-End Developer",
     description: "Focused on scalable server-side architectures.",
-    photo: "marquise.jpeg",
+    photo: "../images/marquise.jpeg",
     github: "https://github.com/mdeadwiler", // GitHub profile link
   },
   {
     name: "Reuben",
     role: "Backend Developer",
     description: "Ensures efficient project workflows.",
-    photo: "reuben.jpeg",
+    photo: "../images/reuben.jpeg",
     github: "https://github.com/reuben", // GitHub profile link
   },
 ];
