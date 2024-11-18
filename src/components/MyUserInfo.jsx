@@ -7,7 +7,7 @@ export const MyUserInfo = () => {
   const [profile] = useState(dummyProfile);
 
   const handleBecomeHost = () => {
-    alert("You are now a host!"); // Action for "Become a Host"
+    alert("You are now a host! NOTE: THIS NEEDS TO CHANGE ONCE LOGIC COMES"); // Action for "Become a Host"
   };
 
   return (
@@ -18,36 +18,36 @@ export const MyUserInfo = () => {
         className="w-32 h-32 rounded-full object-cover mb-4"
       />
 
-      <h2 className="text-2xl font-semibold mb-6 text-center">
+      <h2 className="text-2xl font-semibold mb-6 text-center text-textColor">
         Account Information
       </h2>
 
       <div className="text-left w-full">
         <div className="mb-4">
           <p className="text-gray-500 text-sm">Email:</p>
-          <p className="text-gray-800">{user.email}</p>
+          <p className="text-textColor">{user.email}</p>
         </div>
 
         <div className="mb-4">
           <p className="text-gray-500 text-sm">Username:</p>
-          <p className="text-gray-800">{user.username}</p>
+          <p className="text-textColor">{user.username}</p>
         </div>
 
         <div className="mb-4">
           <p className="text-gray-500 text-sm">Name:</p>
-          <p className="text-gray-800">{`${user.first_name} ${user.last_name}`}</p>
+          <p className="text-textColor">{`${user.first_name} ${user.last_name}`}</p>
         </div>
 
         <div className="mb-4">
           <p className="text-gray-500 text-sm">Bio:</p>
-          <p className="text-gray-800">{profile.bio}</p>
+          <p className="text-textColor">{profile.bio}</p>
         </div>
 
         {/* Conditional Rendering for Host */}
         {profile.is_host ? (
           <div className="mb-4">
             <p className="text-gray-500 text-sm">Profits:</p>
-            <p className="text-gray-800">${profile.profits.toFixed(2)}</p>
+            <p className="text-textColor">${profile.profits.toFixed(2)}</p>
           </div>
         ) : (
           <button
@@ -59,7 +59,7 @@ export const MyUserInfo = () => {
         )}
       </div>
 
-      <button className="w-full bg-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-400 transition-colors duration-300">
+      <button className="w-full hover:bg-alternativeColor hover:text-lightTextColor py-2 px-4 rounded-lg bg-backgroundColor text-textColor transition-colors duration-300">
         Update
       </button>
     </div>
