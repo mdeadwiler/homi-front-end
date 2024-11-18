@@ -64,7 +64,7 @@ export const MiniListingForm = ({required}) => {
         <input
           type="number"
           id="total"
-          value={total} // maybe make this a 0 for default
+          value={{total}} // maybe make this a 0 for default
           onChange={handleTotalChange}
           required={required}
           className="border rounded-lg p-2 mb-4 w-full text-center"
@@ -72,7 +72,8 @@ export const MiniListingForm = ({required}) => {
 
         <button
           type="button"
-          onClick={(total)}
+          // Had to change this into a function in order for this to functionable. I orgnally had onClick={{total}} with no handlchange
+          onClick={() => console.log(total)}
           className="bg-backgroundColor text-white font-medium rounded-full py-2 px-6 mt-2 w-full"
         >
           reserve

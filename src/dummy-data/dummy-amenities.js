@@ -1,4 +1,4 @@
-const dummyAmenities = [
+export const dummyAmenities = [
     {
         "name": "Heating",
         "image": "https://www.reshot.com/preview-assets/icons/VJLXFPZWAB/water-heating-VJLXFPZWAB.svg"
@@ -90,4 +90,3 @@ const dummyAmenities = [
 ]
 
 
-export default dummyAmenities
