@@ -1,5 +1,6 @@
 import React from "react";
 import { MyUserInfo } from "../components/MyUserInfo";
+import { HostBookings } from "../components/MyBookingsListings";
 
 export const Dashboard = () => {
   return (
@@ -16,7 +17,7 @@ export const Dashboard = () => {
 
       {/* Right Column */}
       <div className="w-2/6 bg-whiteColor p-4 rounded-lg">
-        <p>Right Column</p>
+        <HostBookings />
       </div>
     </div>
   );
