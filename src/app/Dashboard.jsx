@@ -1,6 +1,4 @@
 import React from "react";
-import { HostBookings } from "../components/MyBookingsListings";
-
 export const Dashboard = () => {
   return (
     <>
