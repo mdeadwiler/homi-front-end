@@ -2,7 +2,7 @@ import { useState } from "react";
 
 // Question: will handle change functions change to python or is python on back-end irrelevant from front-end javaScript
 
-export const MiniListingForm = ({required}) => {
+export const MiniListingForm = ({ required }) => {
   // This allows input and update for check in dates for reservation
   const [checkInDate, setCheckInDate] = useState("");
   // This allows input and update for checkout date for reservation
@@ -19,7 +19,7 @@ export const MiniListingForm = ({required}) => {
 
   const handleTotalChange = (e) => {
     setTotal(e.target.value);
-  }
+  };
   // Using javaScript, this will allow us create a price total per night for reservations on the form (however, will use python back-end for this data)
   //**Researched this**
 
@@ -32,7 +32,7 @@ export const MiniListingForm = ({required}) => {
   // }
 
   return (
-   <div className="flex justify-self-end border rounded-lg p-4 bg-white w-72 text-center">
+    <div className="flex justify-self-end border rounded-lg p-4 bg-white w-48 text-center min-h-[400px]">
       <form>
         <label htmlFor="checkInDate" className="block text-sm font-medium mb-1">
           check-in date:
@@ -43,10 +43,13 @@ export const MiniListingForm = ({required}) => {
           value={checkInDate}
           onChange={handleCheckInChange}
           required={required}
-          className="border rounded-lg p-2 mb-4 w-full text-center"
+          className="border rounded-lg p-2 mb-4  text-center"
         />
 
-        <label htmlFor="checkOutDate" className="block text-sm font-medium mb-1">
+        <label
+          htmlFor="checkOutDate"
+          className="block text-sm font-medium mb-1"
+        >
           check-out date:
         </label>
         <input
@@ -64,7 +67,7 @@ export const MiniListingForm = ({required}) => {
         <input
           type="number"
           id="total"
-          value={{total}} // maybe make this a 0 for default
+          value={{ total }} // maybe make this a 0 for default
           onChange={handleTotalChange}
           required={required}
           className="border rounded-lg p-2 mb-4 w-full text-center"
@@ -82,7 +85,3 @@ export const MiniListingForm = ({required}) => {
     </div>
   );
 };
- 
-
-
-

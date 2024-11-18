@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {dummyBookings} from "../dummy-data/dummy-bookings" 
+import { dummyBookingsRB } from "../dummy-data/dummy-bookings-rb";
 
 export const Calendar = () => {
   const [selectedRange, setSelectedRange] = useState({
@@ -21,7 +21,7 @@ export const Calendar = () => {
   // Check if a date is booked
   //NOTE: THIS IS WHERE WE FETCH API FROM BACKEND TO CONFIRM IF IT IS BOOKED
   const isBooked = (date) => {
-    return dummyBookings.some((booking) => {
+    return dummyBookingsRB.some((booking) => {
       const checkIn = new Date(booking.check_in_date);
       const checkOut = new Date(booking.check_out_date);
       return date >= checkIn && date <= checkOut;
@@ -80,7 +80,7 @@ export const Calendar = () => {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto p-4 bg-whiteColor shadow-lg rounded-lg">
+    <div className="max-w-3xl mx-auto p-4 bg-whiteColor shadow-lg rounded-lg">
       <div className="flex justify-between items-center mb-4">
         <button
           onClick={() => navigateMonth(-1)}
