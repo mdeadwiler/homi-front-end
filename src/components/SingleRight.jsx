@@ -10,9 +10,14 @@ export const SingleRight = ({ property }) => {
         <p className="text-gray-600">Map Placeholder</p>
       </div>
 
+      
+      
+      
+      
       {/* This shows the bottom for  Amenities on Left, ListingDescription on the Right */}
-      <div className="flex justify-between space-x-8 p-4 bg-gray-50 rounded-lg shadow">
-        <div className="flex-1 bg-white p-4 rounded-lg shadow">
+      <div className="flex-1 columns-2 md:columns-2 bg-white p-4 rounded-lg shadow border border-teal-500">
+        <div className="flex-1 bg-white p-4 rounded-lg">
+        
           {/* Left Side: Amenities */}
         
         
@@ -25,6 +30,6 @@ export const SingleRight = ({ property }) => {
         </div>
       </div>
     </div>
-    </div>
+   </div>
   );
 };

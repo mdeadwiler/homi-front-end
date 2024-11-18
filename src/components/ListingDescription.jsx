@@ -19,7 +19,7 @@ export const ListingDescription = ({ property }) => {
         <p>
           {isExpanded
             ? property?.description || 'No description available.'
-            : `${property?.description?.slice(0, 100) || 'No description available.'}...`}
+            : `${property?.description?.slice(0, 60) || 'No description available.'}...`}
           
           <span onClick={toggleDescription} className="text-teal-500 cursor-pointer">
             {isExpanded ? " see less" : " see more"}
