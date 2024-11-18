@@ -29,10 +29,13 @@ export function AppRoutes({}) {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/listing" element={<Listing />} />
         <Route
-          path="/listing/:listingId/booking"
+          path="/listing/booking"
           element={<SingleListingBooking />}
+
         />
       </>
     </Routes>
   );
 }
+
+// NOTE: SINGLE LISTING BOOKING PATH IS GOING TO CHANGE FROM THIS ONE TO /:listingId/booking after changes are made

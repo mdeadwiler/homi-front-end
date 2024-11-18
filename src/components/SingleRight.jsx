@@ -1,31 +1,35 @@
-import React from 'react';
-import { Amenities } from './Amenities';
-import { ListingDescription } from './ListingDescription';
+import React from "react";
+import { Amenities } from "./Amenities";
+import { ListingDescription } from "./ListingDescription";
 
 export const SingleRight = ({ property }) => {
   return (
-    <div className="flex flex-col bg-gray-50 p-6 rounded-lg shadow-lg w-full md:w-full h-full justify-between">
-      
-      {/* Map Section Placeholder */}
+    <div className="flex flex-col bg-white rounded-lg shadow-lg p-6 space-y-8 w-full">
+      {/* I just needed this here to get a full layout of my component. Polina's mao will replace this*/}
       <div className="relative bg-green-200 h-48 rounded-lg flex items-center justify-center border-2 border-blue-300 mb-8">
         <p className="text-gray-600">Map Placeholder</p>
       </div>
+
       
-      {/* Bottom Section: Amenities on the Bottom Left, ListingDescription on the Bottom Right */}
-      <div className="flex justify-between items-end w-full space-x-8">
+      
+      
+      
+      {/* This shows the bottom for  Amenities on Left, ListingDescription on the Right */}
+      <div className="flex-1 columns-2 md:columns-2 bg-white p-4 rounded-lg shadow border border-teal-500">
+        <div className="flex-1 bg-white p-4 rounded-lg">
         
-        {/* Left Side: Amenities */}
-        <div className="w-1/2">
-          <Amenities />
-        </div>
+          {/* Left Side: Amenities */}
+        
+        
+        
+        <Amenities />
 
         {/* Right Side: Listing Description */}
-        <div className="w-1/2 text-right">
-          <ListingDescription property={property} />
+        <div className="flex-1 bg-white p-4 rounded-lg shadow border border-teal-500">
+        <ListingDescription property={property} />
         </div>
       </div>
     </div>
+   </div>
   );
 };
-
-
