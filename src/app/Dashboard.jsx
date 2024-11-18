@@ -12,7 +12,7 @@ export const Dashboard = () => {
 
       {/* Middle Column */}
       <div className="w-3/6 bg-alternativeColor p-4 rounded-lg">
-        <p>Middle Column</p>
+        <p>Your Active Listing</p>
       </div>
 
       {/* Right Column */}
