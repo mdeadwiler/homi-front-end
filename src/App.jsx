@@ -1,28 +1,68 @@
-import { useState } from 'react'
-import Rodal from 'rodal'
-import 'rodal/lib/rodal.css'
+import { useState } from "react";
+import Rodal from "rodal";
+import "rodal/lib/rodal.css";
 import "./App.css";
 import "./index.css";
 import { AppRoutes } from "./Routes";
-import { SignUp } from './app/SignUp';
-import { SignIn } from './app/Signin';
+import { SignUp } from "./app/SignUp";
+import { SignIn } from "./app/Signin";
+import Footer from "./components/Footer";
 
 function App() {
-  const [showRegister, setShowRegister] = useState(false)
-  const [showLogin, setShowLogin] = useState(false)
+  const [showRegister, setShowRegister] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [activeModal, setActiveModal] = useState(null);
 
+  console.log(activeModal);
+
+  // Handle signup submission
+  const handleSignUp = (formData) => {
+    console.log("SignUp Data:", formData);
+    setActiveModal(null); // Close modal after signup
+  };
+
+  // Handle login submission
+  const handleSignIn = (formData) => {
+    console.log("SignIn Data:", formData);
+    setActiveModal(null); // Close modal after login
+  };
 
   return (
     <>
-    <button onClick={() => setShowRegister(true)}>Register</button>
-    <button onClick={() => setShowLogin(true)}>Log In</button>
+      
       <AppRoutes />
-      <Rodal visible={showRegister} onClose={() => setShowRegister(false)} closeOnEsc="true">
-        <SignUp />
+      {/* Register Modal */}
+      <Rodal
+        visible={activeModal === "register"}
+        onClose={() => setActiveModal(null)}
+        closeOnEsc={true}
+        closeMaskOnClick={true}
+        customStyles={{
+          width: "400px",
+          height: "400px",
+          padding: "20px",
+          borderRadius: "10px",
+        }}
+      >
+        <SignUp onSubmit={handleSignUp} />
       </Rodal>
-      <Rodal visible={showLogin} onClose={() => setShowLogin(false)} closeOnEsc="true">
-        <SignIn />
+
+      {/* Login Modal */}
+      <Rodal
+        visible={activeModal === "login"}
+        onClose={() => setActiveModal(null)}
+        closeOnEsc={true}
+        closeMaskOnClick={true}
+        customStyles={{
+          width: "400px",
+          height: "350px",
+          padding: "20px",
+          borderRadius: "10px",
+        }}
+      >
+        <SignIn onSubmit={handleSignIn} />
       </Rodal>
+      <Footer />
     </>
   );
 }

@@ -15,7 +15,6 @@ const signUp = async (formData) => {
         const response = await axios.post(`${BACKEND_URL}users/register/`, formData);
 
         if (response.data.error) {
-            console.log('inside error block')
             console.log(response.data.error)
             throw new Error(response.data.error);
         }
