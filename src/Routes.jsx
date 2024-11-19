@@ -28,11 +28,7 @@ export function AppRoutes({}) {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/listing" element={<Listing />} />
-        <Route
-          path="/listing/booking"
-          element={<SingleListingBooking />}
-
-        />
+        <Route path="/listing/booking" element={<SingleListingBooking />} />
       </>
     </Routes>
   );

@@ -1,12 +1,14 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { BookingForm } from "../app/BookingForm";
 
 export const MiniListingForm = ({ required }) => {
   const [checkInDate, setCheckInDate] = useState("");
   const [checkOutDate, setCheckOutDate] = useState("");
   const [total, setTotal] = useState(0);
-// This is just giving price per night for each listingas if it was a hotel. However each listing is a different price but this works for now
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+
   const pricePerNight = 100;
-// Check in and check out date update functionality 
+
   const handleCheckInChange = (e) => {
     setCheckInDate(e.target.value);
   };
@@ -15,27 +17,14 @@ export const MiniListingForm = ({ required }) => {
     setCheckOutDate(e.target.value);
     // ternery for populate total
   };
-// This shows you have to select both check in and check out date in order to reserve a listing
-  const calculateTotal = () => {
-    if (!checkInDate || !checkOutDate) {
-      alert("select both check-in and check-out dates.");
-      return;
-    }
 
+  const calculateTotal = () => {
     const checkIn = new Date(checkInDate);
     const checkOut = new Date(checkOutDate);
 
-    if (checkOut <= checkIn) {
-      alert("Check-out date must be after check-in date.");
-      return;
-    }
-// Chat gpt reserach: Chatgpt shows it is best to do the multiplation in miliseconds to days to get total price
-    const differenceInTime = checkOut - checkIn;
-    const numberOfNights = differenceInTime / (1000 * 60 * 60 * 24); 
-    const calculatedTotal = numberOfNights * pricePerNight;
-
-    setTotal(calculatedTotal); 
-    alert(`You reserved ${numberOfNights} this listing for the total price of $${calculatedTotal}.`);
+    const numberOfNights =
+      (checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24);
+    setTotal(numberOfNights * pricePerNight);
   };
 
   return (
@@ -53,7 +42,10 @@ export const MiniListingForm = ({ required }) => {
           className="border rounded-lg p-2 mb-4 text-center"
         />
 
-        <label htmlFor="checkOutDate" className="block text-sm font-medium mb-1">
+        <label
+          htmlFor="checkOutDate"
+          className="block text-sm font-medium mb-1"
+        >
           Check-out Date:
         </label>
         <input
@@ -71,9 +63,7 @@ export const MiniListingForm = ({ required }) => {
         <input
           type="number"
           id="total"
-          // This allows display of total after calculation
-          value={total} 
-          // This keeps from any client side inputting a number in the price box
+          value={total}
           readOnly
           required={required}
           className="border rounded-lg p-2 mb-4 w-full text-center bg-gray-100"
@@ -81,12 +71,27 @@ export const MiniListingForm = ({ required }) => {
 
         <button
           type="button"
-          onClick={calculateTotal}
+          onClick={() => {
+            calculateTotal();
+            setIsBookingModalOpen(true);
+          }}
           className="bg-logoColor text-white font-medium rounded-full py-2 px-6 mt-2 w-full transition-transform transform active:scale-95 hover:bg-backgroundColor"
         >
           Reserve
         </button>
       </form>
+
+      {isBookingModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white rounded-lg p-6 w-96">
+            <BookingForm
+              onClose={() => setIsBookingModalOpen(false)}
+              initialCheckInDate={checkInDate}
+              initialCheckOutDate={checkOutDate}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

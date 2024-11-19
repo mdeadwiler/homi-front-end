@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { dummyAmenities } from "../dummy-data/dummy-amenities";
-import Footer from "../components/Footer";
+
 
 export const ListingForm = () => {
   const [formData, setFormData] = useState({
@@ -169,10 +169,9 @@ export const ListingForm = () => {
         </div>
       </form>
 
-      {/* Footer at the Bottom */}
-      <Footer />
+      
     </div>
   );
 };
 
-export default ListingForm;
+
