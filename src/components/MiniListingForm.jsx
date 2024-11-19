@@ -1,41 +1,48 @@
 import { useState } from "react";
 
-// Question: will handle change functions change to python or is python on back-end irrelevant from front-end javaScript
-
 export const MiniListingForm = ({ required }) => {
-  // This allows input and update for check in dates for reservation
   const [checkInDate, setCheckInDate] = useState("");
-  // This allows input and update for checkout date for reservation
   const [checkOutDate, setCheckOutDate] = useState("");
-  // This allows default to set for zero for pricing after pricing is inputed then 0 will update to the pricing of the reservation
   const [total, setTotal] = useState(0);
-
+// This is just giving price per night for each listingas if it was a hotel. However each listing is a different price but this works for now
+  const pricePerNight = 100;
+// Check in and check out date update functionality 
   const handleCheckInChange = (e) => {
     setCheckInDate(e.target.value);
   };
+
   const handleCheckOutChange = (e) => {
     setCheckOutDate(e.target.value);
+    // ternery for populate total
   };
+// This shows you have to select both check in and check out date in order to reserve a listing
+  const calculateTotal = () => {
+    if (!checkInDate || !checkOutDate) {
+      alert("select both check-in and check-out dates.");
+      return;
+    }
 
-  const handleTotalChange = (e) => {
-    setTotal(e.target.value);
+    const checkIn = new Date(checkInDate);
+    const checkOut = new Date(checkOutDate);
+
+    if (checkOut <= checkIn) {
+      alert("Check-out date must be after check-in date.");
+      return;
+    }
+// Chat gpt reserach: Chatgpt shows it is best to do the multiplation in miliseconds to days to get total price
+    const differenceInTime = checkOut - checkIn;
+    const numberOfNights = differenceInTime / (1000 * 60 * 60 * 24); 
+    const calculatedTotal = numberOfNights * pricePerNight;
+
+    setTotal(calculatedTotal); 
+    alert(`You reserved ${numberOfNights} this listing for the total price of $${calculatedTotal}.`);
   };
-  // Using javaScript, this will allow us create a price total per night for reservations on the form (however, will use python back-end for this data)
-  //**Researched this**
-
-  // const calculatorTotal = () => {
-  // const pricePerNight = 0 //set to 0 for now
-  // const checkIn = ""
-  // const checkOut = ""
-  // const oneDay = 3456
-  // const nightsTotal = Math.round(Math.abs((checkIn - checkOut) / pricePerNight))
-  // }
 
   return (
     <div className="flex justify-self-end border rounded-lg p-4 bg-white w-48 text-center min-h-[400px]">
       <form>
         <label htmlFor="checkInDate" className="block text-sm font-medium mb-1">
-          check-in date:
+          Check-in Date:
         </label>
         <input
           type="date"
@@ -43,14 +50,11 @@ export const MiniListingForm = ({ required }) => {
           value={checkInDate}
           onChange={handleCheckInChange}
           required={required}
-          className="border rounded-lg p-2 mb-4  text-center"
+          className="border rounded-lg p-2 mb-4 text-center"
         />
 
-        <label
-          htmlFor="checkOutDate"
-          className="block text-sm font-medium mb-1"
-        >
-          check-out date:
+        <label htmlFor="checkOutDate" className="block text-sm font-medium mb-1">
+          Check-out Date:
         </label>
         <input
           type="date"
@@ -58,28 +62,29 @@ export const MiniListingForm = ({ required }) => {
           value={checkOutDate}
           onChange={handleCheckOutChange}
           required={required}
-          className="border rounded-lg p-2 mb-4 w-full text-center"
+          className="border rounded-lg p-2 mb-4 text-center"
         />
 
         <label htmlFor="total" className="block text-sm font-medium mb-1">
-          total:
+          Total:
         </label>
         <input
           type="number"
           id="total"
-          value={{ total }} // maybe make this a 0 for default
-          onChange={handleTotalChange}
+          // This allows display of total after calculation
+          value={total} 
+          // This keeps from any client side inputting a number in the price box
+          readOnly
           required={required}
-          className="border rounded-lg p-2 mb-4 w-full text-center"
+          className="border rounded-lg p-2 mb-4 w-full text-center bg-gray-100"
         />
 
         <button
           type="button"
-          // Had to change this into a function in order for this to functionable. I orgnally had onClick={{total}} with no handlchange
-          onClick={() => console.log(total)}
-          className="bg-backgroundColor text-white font-medium rounded-full py-2 px-6 mt-2 w-full"
+          onClick={calculateTotal}
+          className="bg-logoColor text-white font-medium rounded-full py-2 px-6 mt-2 w-full transition-transform transform active:scale-95 hover:bg-backgroundColor"
         >
-          reserve
+          Reserve
         </button>
       </form>
     </div>

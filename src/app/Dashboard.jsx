@@ -4,7 +4,7 @@ import { HostBookings } from "../components/MyBookingsListings";
 
 export const Dashboard = () => {
   return (
-    <div className="flex h-screen gap-x-6">
+    <div className="flex flex-center h-full gap-x-6">
       {/* Left Column */}
       <div className="w-2/6 bg-whiteColor p-4 rounded-lg">
         <MyUserInfo />

@@ -2,89 +2,91 @@
 import React from "react";
 import Footer from "../components/Footer"; // Use default import for Footer
 
+
 const teamMembers = [
   {
-    name: "Rani",
-    role: "Project Manager",
-    description: "Passionate about creating dynamic user experiences.",
-    photo: "../images/rani.jpeg",
-    github: "https://github.com/rbungay", // GitHub profile link
+    name: "Rani Bungay",
+    role: "Full Stack Manager",
+    description:
+      "Leads the development of end-to-end solutions, ensuring seamless collaboration between front-end and back-end teams.",
+    photo: "/img/team/rani.jpeg",
+    github: "https://github.com/rbungay",
   },
   {
-    name: "Zaire",
-    role: "Frontend Developer",
-    description: "Skilled in creating interactive interfaces.",
-    photo: "../images/zaire.jpeg",
-    github: "https://github.com/zjyezaire", // GitHub profile link
-  },
-  {
-    name: "Polina",
+    name: "Polina Stepanova",
     role: "Back-End Manager",
-    description: "Loves designing seamless web experiences.",
-    photo: "../images/polina.jpeg",
-    github: "https://github.com/realpolya", // GitHub profile link
+    description:
+      "Specializes in designing robust server-side solutions and managing API integrations for scalable applications.",
+    photo: "/img/team/polina.jpeg",
+    github: "https://github.com/realpolya",
   },
   {
     name: "Marquise Deadwiler",
-    role: "Front-End Developer",
-    description: "Focused on scalable server-side architectures.",
-    photo: "../images/marquise.jpeg",
-    github: "https://github.com/mdeadwiler", // GitHub profile link
+    role: "Front-End Manager",
+    description:
+      "Expert in crafting engaging and responsive user interfaces, focused on delivering exceptional client-side experiences.",
+    photo: "/img/team/marquise.jpeg",
+    github: "https://github.com/mdeadwiler",
   },
   {
-    name: "Reuben",
+    name: "Zaire Elleby",
+    role: "Frontend Developer",
+    description:
+      "Builds interactive and visually appealing user interfaces with a focus on accessibility and performance.",
+    photo: "/img/team/zaire.jpeg",
+    github: "https://github.com/zjyezaire",
+  },
+  {
+    name: "Reuben Erlich",
     role: "Backend Developer",
-    description: "Ensures efficient project workflows.",
-    photo: "../images/reuben.jpeg",
-    github: "https://github.com/reuben", // GitHub profile link
+    description:
+      "Develops efficient server-side systems and ensures seamless data flow between applications and databases.",
+    photo: "/img/team/reuben.jpeg",
+    github: "https://github.com/reuben",
   },
 ];
 
+const TeamMemberCard = ({ member }) => {
+  return (
+    <div className="bg-cardColor p-6 rounded-3xl shadow-lg flex items-center justify-between transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
+      <div className="text-left flex-1">
+        <h2 className="text-lg font-semibold text-textColor">{member.name}</h2>
+        <p className="text-sm text-textColor">{member.role}</p>
+        <p className="text-sm text-textColor mt-2">{member.description}</p>
+      </div>
+
+      <div className="flex flex-col items-center space-y-4">
+        <img
+          src={member.photo}
+          alt={`${member.name}'s profile`}
+          className="w-16 h-16 rounded-full"
+        />
+        {member.github && (
+          <a
+            href={member.github}
+            className="bg-buttonColor text-whiteColor px-4 py-2 rounded-full text-sm hover:bg-alternativeColor"
+          >
+            View GitHub
+          </a>
+        )}
+      </div>
+    </div>
+  );
+};
+
 export const About = () => {
   return (
-    <div
-      className="flex flex-col min-h-screen" // Flex container for the entire page
-      style={{ backgroundColor: "#E8F1E9" }} // Custom pale green background
-    >
+    <div className="flex flex-col min-h-screen">
       <div className="flex-grow p-8">
-        <h1 className="text-4xl font-bold text-left text-gray-800 mb-8">
-          About Homi Team
+        <h1 className="text-4xl text-left text-textColor mb-8">
+          Meet your homi-es
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
           {teamMembers.map((member, index) => (
-            <div
-              key={index}
-              className="bg-gray-200 p-6 rounded-3xl shadow-lg flex items-center space-x-4 w-full transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
-            >
-              <img
-                src={member.photo}
-                alt={`${member.name}'s profile`}
-                className="w-16 h-16 rounded-full"
-              />
-              <div className="text-left">
-                <h2 className="text-lg font-semibold text-gray-800">
-                  {member.name}
-                </h2>
-                <p className="text-sm text-gray-600">{member.role}</p>
-                <p className="text-sm text-gray-700 mt-2">{member.description}</p>
-                {member.github && (
-                  <a
-                    href={member.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-teal-600 text-white px-4 py-2 rounded-full text-sm hover:bg-teal-500 mt-4 inline-block"
-                  >
-                    View GitHub
-                  </a>
-                )}
-              </div>
-            </div>
+            <TeamMemberCard key={index} member={member} />
           ))}
         </div>
       </div>
-
-      {/* Footer Sticks to Bottom */}
-      <Footer />
     </div>
   );
 };
