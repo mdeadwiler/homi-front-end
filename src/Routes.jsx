@@ -4,7 +4,7 @@ import { BookingForm } from "./app/BookingForm";
 import { Bookings } from "./app/Bookings";
 import { Dashboard } from "./app/Dashboard";
 import { Landing } from "./app/Landing";
-import { Listing } from "./app/Listing";
+import { Listings } from "./app/Listings";
 import { ListingForm } from "./app/ListingForm";
 import { SignIn } from "./app/Signin";
 import { SignUp } from "./app/SignUp";
@@ -17,9 +17,19 @@ export function AppRoutes({}) {
       {/* NOTE: this needs to get changed once we have services file adding {user &&()} */}
       <>
         <Route path="/booking-form" element={<BookingForm />} />
-        <Route path="/bookings" element={<Bookings />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/booking-form/:bookingId" element={<BookingForm />} />
+        <Route path="/bookings/guest" element={<Bookings />} />
+        <Route path="/bookings/host" element={<Bookings />} />
+        <Route path="/dashboard/host" element={<Dashboard />} />
+        <Route path="/dashboard/guest" element={<Dashboard />} />
         <Route path="/listing-form" element={<ListingForm />} />
+        <Route path="/listing-form/:listingId" element={<ListingForm />} />
+        <Route
+          path="/listing/:listingId/owner"
+          element={<SingleListingBooking />}
+        />
+        <Route path="/booking/:listingId" element={<SingleListingBooking />} />
+        <Route path="/mylistings" element={<Listings />} />
       </>
       <>
         {/*these are currently public paths*/}
@@ -27,11 +37,13 @@ export function AppRoutes({}) {
         <Route path="/about" element={<About />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/listing" element={<Listing />} />
-        <Route path="/listing/booking" element={<SingleListingBooking />} />
+        <Route path="/listings" element={<Listings />} />
+
+        <Route path="/listing/:listingId" element={<SingleListingBooking />} />
       </>
+      {/* NOTE: Going to DELETE LATER*/}
+      <Route path="/listing/booking" element={<SingleListingBooking />} />
+      <Route path="/bookings" element={<Bookings />} />
     </Routes>
   );
 }
-
-// NOTE: SINGLE LISTING BOOKING PATH IS GOING TO CHANGE FROM THIS ONE TO /:listingId/booking after changes are made

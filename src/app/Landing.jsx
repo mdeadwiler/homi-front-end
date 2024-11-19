@@ -1,7 +1,7 @@
 // FIXME: TEMPORARILY TESTING SERVICES HERE
-import { useState } from 'react';
-import { signOut, signUp, signIn, getUser, verifyToken, updateUser, getAmenities } from "../services/index.js";
 
+import { useState } from 'react';
+import { signOut, signUp, signIn, getUser, verifyToken, updateUser, getAmenities, getProperties } from "../services/index.js";
 
 export const Landing = () => {
   const [user, setUser] = useState(null);
@@ -13,9 +13,9 @@ export const Landing = () => {
   });
 
   const [logInFormData, setLogInFormData] = useState({
-    username: '',
-    password: ''
-})
+    username: "",
+    password: "",
+  });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -38,22 +38,16 @@ export const Landing = () => {
   };
 
   const handleSubmitSignIn = async (e) => {
-
     e.preventDefault();
     try {
-
       const loggedInUser = await signIn(logInFormData);
       // const updatedUser = await updateUser(logInFormData)
       // console.log(updatedUser)
       // setUser(loggedInUser);
-
     } catch (err) {
-
-      console.log(err)
-    
+      console.log(err);
     }
-
-  }
+  };
   const { username, email, password, passwordConf } = formData;
 
   const isFormInvalid = () => {
@@ -67,16 +61,22 @@ export const Landing = () => {
   const handleSignOut = async () => {
     // return signOut()
     // getUser()
-    const amenities = await getAmenities()
-    console.log('amenities are ', amenities)
-    console.log('first amenitys name is', amenities[0].name)
+
+    // const amenities = await getAmenities()
+    // console.log('amenities are ', amenities)
+    // console.log('first amenitys name is', amenities[0].name)
+
+    const properties = await getProperties()
+    console.log('properties are', properties)
+    console.log('first property is', properties[0])
     
   }
 
 
-  return (
-    <main>Landing?
 
+  return (
+    <main>
+      Landing?
       {/* <form onSubmit={handleSubmit} className="sign-form">
 
           <div className="sign-form-div">
@@ -132,42 +132,44 @@ export const Landing = () => {
           </div>
 
       </form> */}
-
       <form onSubmit={handleSubmitSignIn} className="sign-form">
+        <div className="sign-form-div">
+          <label className="sign-form-label" htmlFor="username">
+            Username:
+          </label>
+          <input
+            type="text"
+            id="username"
+            value={logInFormData.username}
+            name="username"
+            onChange={handleChangeSignIn}
+            required
+          />
+        </div>
 
-          <div className="sign-form-div">
-            <label className="sign-form-label" htmlFor="username">Username:</label>
-            <input
-              type="text"
-              id="username"
-              value={logInFormData.username}
-              name="username"
-              onChange={handleChangeSignIn}
-              required
-            />
-          </div>
+        <div className="sign-form-div">
+          <label className="sign-form-label" htmlFor="password">
+            Password:
+          </label>
+          <input
+            type="password"
+            id="password"
+            value={logInFormData.password}
+            name="password"
+            onChange={handleChangeSignIn}
+            required
+          />
+        </div>
 
-          <div className="sign-form-div">
-            <label className="sign-form-label" htmlFor="password">Password:</label>
-            <input
-              type="password"
-              id="password"
-              value={logInFormData.password}
-              name="password"
-              onChange={handleChangeSignIn}
-              required
-            />
-          </div>
-
-          <div className="sign-form-div-buttons">
-            <button type="submit" disabled={isFormInvalidLogIn()}>Sign In</button>
-          </div>
-
+        <div className="sign-form-div-buttons">
+          <button type="submit" disabled={isFormInvalidLogIn()}>
+            Sign In
+          </button>
+        </div>
       </form>
-          
-      <button type="submit" onClick={handleSignOut}>Test button</button>
-
+      <button type="submit" onClick={handleSignOut}>
+        Test button
+      </button>
     </main>
-    );
-
+  );
 };
