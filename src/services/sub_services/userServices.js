@@ -21,6 +21,7 @@ const signUp = async (formData) => {
 
 } 
 
+
 const signIn = async (formData) => {
 
     try {
@@ -38,14 +39,30 @@ const signIn = async (formData) => {
 
 }
 
-// TODO:
+
 const getUser = () => {
 
     const token = localStorage.getItem('token');
     if (!token) return null;
     const user = JSON.parse(atob(token.split('.')[1]));
+    console.log(user)
     return user;
+    
+}
 
+
+const verifyToken = async () => {
+    
+    const token = localStorage.getItem('token');
+    if (token) {
+        const response = await api.get('users/token/refresh/')
+        localStorage.setItem('token', response.data.access);
+        console.log('the user is ', response.data.user)
+        return response.data.user;
+    }
+    console.log('No user')
+    return false;
+    
 }
 
 
@@ -75,4 +92,4 @@ const updateUser = (formData) => {
 
 /* --------------------------------Exports--------------------------------*/
 
-export { signUp, signIn, getUser, signOut };
+export { signUp, signIn, getUser, signOut, verifyToken };

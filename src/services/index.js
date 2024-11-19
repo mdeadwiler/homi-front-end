@@ -4,7 +4,8 @@ const {
   signUp,
   signIn,
   getUser,
-  signOut
+  signOut,
+  verifyToken
 } = user;
 
 const services = {
@@ -19,5 +20,6 @@ export {
     signUp,
     signIn,
     getUser,
-    signOut
+    signOut,
+    verifyToken
 }

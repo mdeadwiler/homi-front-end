@@ -1,6 +1,6 @@
 // FIXME: TEMPORARILY TESTING SERVICES HERE
 import { useState } from 'react';
-import { signOut, signUp, signIn } from "../services/index.js";
+import { signOut, signUp, signIn, getUser, verifyToken } from "../services/index.js";
 
 export const Landing = () => {
 
@@ -70,7 +70,9 @@ export const Landing = () => {
   };
 
   const handleSignOut = () => {
-    return signOut()
+    // return signOut()
+    // getUser()
+    verifyToken()
   }
 
 
@@ -165,7 +167,7 @@ export const Landing = () => {
 
       </form>
           
-      <button type="submit" onClick={handleSignOut}>Sign Out</button>
+      <button type="submit" onClick={handleSignOut}>Test button</button>
 
     </div>
 
