@@ -13,11 +13,24 @@ const {
 } = user;
 
 const {
-  getProperties
+  getProperties,
+  postProperty,
+  getMyProperties,
+  getMyArchived,
+  getUserProperties,
+  getSingleProperty,
+  putProperty
 } = properties
 
 const {
-  getBookings
+  getBookings,
+  getUpcoming,
+  postBooking,
+  getSingleBooking,
+  putBooking,
+  deleteBooking,
+  getHostBookings,
+  getPropBookings,
 } = bookings
 
 const {
@@ -33,9 +46,22 @@ const services = {
     updateUser,
 
     getProperties,
+    postProperty,
+    getMyProperties,
+    getMyArchived,
+    getUserProperties,
+    getSingleProperty,
+    putProperty,
 
     getBookings,
-    
+    getUpcoming,
+    postBooking,
+    getSingleBooking,
+    putBooking,
+    deleteBooking,
+    getHostBookings,
+    getPropBookings,
+
     getAmenities
 }
 
@@ -47,7 +73,23 @@ export {
     signOut,
     verifyToken,
     updateUser,
+
     getProperties,
+    postProperty,
+    getMyProperties,
+    getMyArchived,
+    getUserProperties,
+    getSingleProperty,
+    putProperty,
+
     getBookings,
+    getUpcoming,
+    postBooking,
+    getSingleBooking,
+    putBooking,
+    deleteBooking,
+    getHostBookings,
+    getPropBookings,
+
     getAmenities
 }

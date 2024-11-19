@@ -1,16 +1,9 @@
 // FIXME: TEMPORARILY TESTING SERVICES HERE
+import { useState } from 'react';
+import { signOut, signUp, signIn, getUser, verifyToken, updateUser, getAmenities, getProperties, getMyProperties, 
+  getMyArchived, getUserProperties, getSingleProperty, getBookings, getUpcoming, 
+  getSingleBooking, getHostBookings, getPropBookings } from "../services/index.js";
 
-import { useState } from "react";
-import {
-  signOut,
-  signUp,
-  signIn,
-  getUser,
-  verifyToken,
-  updateUser,
-  getAmenities,
-  getProperties,
-} from "../services/index.js";
 
 export const Landing = () => {
   const [user, setUser] = useState(null);
@@ -75,10 +68,48 @@ export const Landing = () => {
     // console.log('amenities are ', amenities)
     // console.log('first amenitys name is', amenities[0].name)
 
+
+    // const properties = await getProperties()
+    // const properties = await getProperties('type=ca')
+    // console.log('properties are', properties)
+    // console.log('first property is', properties[0])
+    
+    // const myProperties = await getMyProperties()
+    // console.log('my properties are', myProperties)
+
+    // const myArchived = await getMyArchived()
+    // console.log('my archived props are ', myArchived)
+
+    // const userProps = await getUserProperties(6)
+    // console.log('users props are ', userProps)
+
+    // const oneProp = await getSingleProperty(1)
+    // console.log('single prop is ', oneProp)
+
+    // const myBookings = await getBookings()
+    // console.log('my bookings ', myBookings)
+
+    // const myUpcoming = await getUpcoming()
+    // console.log('my upcoming bookings ', myUpcoming)
+
+    // const oneBooking = await getSingleBooking(1)
+    // console.log('one booking is ', oneBooking)
+
+    // const hostBookings = await getHostBookings()
+    // console.log('hosts bookings are ', hostBookings)
+
+    const propBookings = await getPropBookings(1)
+    console.log('bookings for property are ', propBookings)
+    
+  }
+
+
+
     const properties = await getProperties();
     console.log("properties are", properties);
     console.log("first property is", properties[0]);
   };
+
 
   return (
     <main>
@@ -173,9 +204,11 @@ export const Landing = () => {
           </button>
         </div>
       </form>
+
       <button type="submit" onClick={handleSignOut}>
         Test button
       </button>
+
     </main>
   );
 };
