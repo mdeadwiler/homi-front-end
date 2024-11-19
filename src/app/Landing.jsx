@@ -1,7 +1,16 @@
 // FIXME: TEMPORARILY TESTING SERVICES HERE
 
-import { useState } from 'react';
-import { signOut, signUp, signIn, getUser, verifyToken, updateUser, getAmenities, getProperties } from "../services/index.js";
+import { useState } from "react";
+import {
+  signOut,
+  signUp,
+  signIn,
+  getUser,
+  verifyToken,
+  updateUser,
+  getAmenities,
+  getProperties,
+} from "../services/index.js";
 
 export const Landing = () => {
   const [user, setUser] = useState(null);
@@ -66,13 +75,10 @@ export const Landing = () => {
     // console.log('amenities are ', amenities)
     // console.log('first amenitys name is', amenities[0].name)
 
-    const properties = await getProperties()
-    console.log('properties are', properties)
-    console.log('first property is', properties[0])
-    
-  }
-
-
+    const properties = await getProperties();
+    console.log("properties are", properties);
+    console.log("first property is", properties[0]);
+  };
 
   return (
     <main>

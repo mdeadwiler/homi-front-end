@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BookingForm } from "../app/BookingForm";
+import { BookingForm } from "./BookingForm";
 
 export const MiniListingForm = ({ required }) => {
   const [checkInDate, setCheckInDate] = useState("");
@@ -7,13 +7,12 @@ export const MiniListingForm = ({ required }) => {
   const [total, setTotal] = useState(0);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
-
   // Fixed price per night
-// fixed cleaning fee
+  // fixed cleaning fee
   //These two are to test to see if it working
   // Will create useEffect data to fetch from the backend
-  const pricePerNight = 100; 
-  const cleaningFee = 50; 
+  const pricePerNight = 100;
+  const cleaningFee = 50;
 
   const handleCheckInChange = (e) => {
     setCheckInDate(e.target.value);
@@ -104,16 +103,6 @@ export const MiniListingForm = ({ required }) => {
     </div>
   );
 };
-
-
-
-
-
-
-
-
-
-
 
 // import React, { useState } from "react";
 // import { BookingForm } from "../app/BookingForm";

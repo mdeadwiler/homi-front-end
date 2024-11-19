@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { dummyUser } from "../dummy-data/dummy-user";
 
-export const MyUserInfo = () => {
-  //NOTE: THIS NEEDS TO CHANGE ONCE WE GET API
+export const MyUserInfo = ({ isHost }) => {
+  // Dummy data
   const [user] = useState(dummyUser.dummyUser);
   const [profile] = useState(dummyUser.dummyProfile);
 
   const handleBecomeHost = () => {
-    alert("You are now a host! NOTE: THIS NEEDS TO CHANGE ONCE LOGIC COMES"); // Action for "Become a Host"
+    alert("You are now a host! NOTE: THIS NEEDS TO CHANGE ONCE LOGIC COMES");
   };
 
   return (
@@ -43,8 +43,8 @@ export const MyUserInfo = () => {
           <p className="text-textColor">{profile.bio}</p>
         </div>
 
-        {/* Conditional Rendering for Host */}
-        {profile.is_host ? (
+        {/* Use isHost prop for conditional rendering */}
+        {isHost ? (
           <div className="mb-4">
             <p className="text-gray-500 text-sm">Profits:</p>
             <p className="text-textColor">${profile.profits.toFixed(2)}</p>
@@ -52,7 +52,7 @@ export const MyUserInfo = () => {
         ) : (
           <button
             onClick={handleBecomeHost}
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors duration-300 mb-4"
+            className="w-full bg-buttonColor text-white py-2 px-4 rounded-lg hover:bg-alternativeColor transition-colors duration-300 mb-4"
           >
             Become a Host
           </button>

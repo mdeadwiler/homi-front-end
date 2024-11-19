@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export const BookingForm = ({
   onClose,
@@ -61,7 +61,7 @@ export const BookingForm = ({
   };
 
   return (
-    <main className="relative p-6 bg-white rounded-lg shadow-lg">
+    <div className="relative p-6 bg-white rounded-lg shadow-lg">
       {/* Close button */}
       <button
         onClick={onClose}
@@ -161,6 +161,6 @@ export const BookingForm = ({
           Confirm Booking
         </button>
       </form>
-    </main>
+    </div>
   );
 };

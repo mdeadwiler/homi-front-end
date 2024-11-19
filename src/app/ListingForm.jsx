@@ -93,9 +93,7 @@ export const ListingForm = () => {
               Select a cancellation policy
             </option>
             <option value="flexible">Flexible: Full refund 1 day prior</option>
-            <option value="moderate">
-              Moderate: Full refund 5 days prior
-            </option>
+            <option value="moderate">Moderate: Full refund 5 days prior</option>
             <option value="strict">Strict: Full refund 7 days prior</option>
           </select>
         </div>
