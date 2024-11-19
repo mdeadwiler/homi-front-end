@@ -1,6 +1,6 @@
 // FIXME: TEMPORARILY TESTING SERVICES HERE
 import { useState } from 'react';
-import { signOut, signUp, signIn, getUser, verifyToken } from "../services/index.js";
+import { signOut, signUp, signIn, getUser, verifyToken, updateUser } from "../services/index.js";
 
 export const Landing = () => {
 
@@ -49,8 +49,9 @@ export const Landing = () => {
     try {
 
       const loggedInUser = await signIn(logInFormData);
-      console.log(loggedInUser)
-      setUser(loggedInUser);
+      // const updatedUser = await updateUser(logInFormData)
+      // console.log(updatedUser)
+      // setUser(loggedInUser);
 
     } catch (err) {
 

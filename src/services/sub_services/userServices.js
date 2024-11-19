@@ -82,14 +82,27 @@ const signOut = () => {
 
 }
 
-// TODO:
-const updateUser = (formData) => {
+
+const updateUser = async (formData) => {
 
     console.log('firing update user')
+
+    try {
+
+        const response = await api.patch('users/profile/', formData);
+        console.log('changed user', response.data.user)
+        return verifyToken();
+
+    } catch (err) {
+        
+        console.log(err.response.data.error);
+        throw err
+
+    }
 
 }
 
 
 /* --------------------------------Exports--------------------------------*/
 
-export { signUp, signIn, getUser, signOut, verifyToken };
+export { signUp, signIn, getUser, signOut, verifyToken, updateUser };
