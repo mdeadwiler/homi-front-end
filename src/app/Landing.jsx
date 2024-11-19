@@ -1,6 +1,6 @@
 // FIXME: TEMPORARILY TESTING SERVICES HERE
 import { useState } from 'react';
-import { signUp, signIn } from "../services/index.js";
+import { signOut, signUp, signIn } from "../services/index.js";
 
 export const Landing = () => {
 
@@ -68,6 +68,10 @@ export const Landing = () => {
   const isFormInvalidLogIn = () => {
     return !(logInFormData.username && logInFormData.password);
   };
+
+  const handleSignOut = () => {
+    return signOut()
+  }
 
 
   return (
@@ -160,8 +164,12 @@ export const Landing = () => {
           </div>
 
       </form>
+          
+      <button type="submit" onClick={handleSignOut}>Sign Out</button>
 
     </div>
+
+
 
   );
 

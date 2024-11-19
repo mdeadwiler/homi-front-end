@@ -48,10 +48,27 @@ const getUser = () => {
 
 }
 
-// TODO:
+
 const signOut = () => {
 
-    localStorage.removeItem('token');
+    try {
+        
+        localStorage.removeItem('token');
+        console.log("Signed out")
+        
+    } catch (error) {
+
+        console.log(err.response.data.error);
+        throw err;
+
+    }
+
+}
+
+// TODO:
+const updateUser = (formData) => {
+
+    console.log('firing update user')
 
 }
 
