@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ListingCard from "../components/ListingCard";
+import {ListingCard} from "../components/ListingCard";
 // import getListings API call from services file
 
 export const Listing = () => {

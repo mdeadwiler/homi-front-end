@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AboutUs = () => {
+export const AboutUs = () => {
   const teamMembers = [
     {
       name: 'Rani',
@@ -67,4 +67,4 @@ const AboutUs = () => {
   );
 };
 
-export default AboutUs;
+

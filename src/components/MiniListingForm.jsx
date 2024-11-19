@@ -13,6 +13,7 @@ export const MiniListingForm = ({ required }) => {
 
   const handleCheckOutChange = (e) => {
     setCheckOutDate(e.target.value);
+    // ternery for populate total
   };
 // This shows you have to select both check in and check out date in order to reserve a listing
   const calculateTotal = () => {

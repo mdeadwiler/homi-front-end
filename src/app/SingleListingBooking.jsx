@@ -1,6 +1,5 @@
 import React from "react";
 import { SingleLeft } from "../components/SingleLeft";
-import { Amenities } from "../components/Amenities";
 import { SingleRight } from "../components/SingleRight";
 
 export const SingleListingBooking = () => {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function ListingCard({listing}) {
+export function ListingCard({listing}) {
   return (
     <Link to={`/listing/${listing._id}`}>
         <div className='card'>
@@ -15,4 +15,3 @@ function ListingCard({listing}) {
   )
 }
 
-export default ListingCard
