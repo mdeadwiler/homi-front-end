@@ -54,12 +54,14 @@ const getUser = () => {
 const verifyToken = async () => {
     
     const token = localStorage.getItem('token');
+
     if (token) {
         const response = await api.get('users/token/refresh/')
         localStorage.setItem('token', response.data.access);
         console.log('the user is ', response.data.user)
         return response.data.user;
     }
+    
     console.log('No user')
     return false;
     
@@ -84,8 +86,6 @@ const signOut = () => {
 
 
 const updateUser = async (formData) => {
-
-    console.log('firing update user')
 
     try {
 

@@ -1,4 +1,7 @@
 import * as user from './sub_services/userServices.js';
+import * as properties from './sub_services/propertyServices.js';
+import * as bookings from './sub_services/bookingServices.js';
+import * as amenities from './sub_services/amenityServices.js';
 
 const {
   signUp,
@@ -9,11 +12,31 @@ const {
   updateUser
 } = user;
 
+const {
+  getProperties
+} = properties
+
+const {
+  getBookings
+} = bookings
+
+const {
+  getAmenities
+} = amenities
+
 const services = {
     signUp,
     signIn,
     getUser,
-    signOut
+    signOut,
+    verifyToken,
+    updateUser,
+
+    getProperties,
+
+    getBookings,
+    
+    getAmenities
 }
 
 export {
@@ -23,5 +46,8 @@ export {
     getUser,
     signOut,
     verifyToken,
-    updateUser
+    updateUser,
+    getProperties,
+    getBookings,
+    getAmenities
 }
