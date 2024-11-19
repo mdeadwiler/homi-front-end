@@ -104,13 +104,6 @@ export const Landing = () => {
   }
 
 
-
-    const properties = await getProperties();
-    console.log("properties are", properties);
-    console.log("first property is", properties[0]);
-  };
-
-
   return (
     <main>
       Landing?
