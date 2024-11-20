@@ -30,13 +30,20 @@ function SortBar({ setListings }) {
   const fetchProperties = async (params) => {
     const queryString = new URLSearchParams(params).toString();
     const response = await api.get(`/properties/?${queryString}`);
-    setListings(response.data)
+    setListings(response.data);
   };
 
   return (
-    <section id="sort-bar-section">
-      <div id="date-form-div">
-        <form id="date-form" onSubmit={handleSearchSubmit}>
+    <section id="sort-bar-section" className="w-full p-4 bg-backgroundColor shadow-md">
+      {/* Main sort bar container */}
+      <div className="flex flex-wrap justify-between items-center gap-4">
+
+        {/* Date form section */}
+        <form
+          id="date-form"
+          onSubmit={handleSearchSubmit}
+          className="flex items-center gap-4"
+        >
           <input
             required
             type="date"
@@ -44,6 +51,7 @@ function SortBar({ setListings }) {
             placeholder="Check In"
             value={checkInDate}
             onChange={handleCheckInChange}
+            className="px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primaryColor"
           />
           <input
             required
@@ -52,14 +60,19 @@ function SortBar({ setListings }) {
             placeholder="Check Out"
             value={checkOutDate}
             onChange={handleCheckOutChange}
+            className="px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primaryColor"
           />
-          <button className="search-form-button" type="submit">Search</button>
         </form>
-      </div>
 
-      <div id="filter-form-div">
-        <form id="filter-form">
-          <select id="filter-select" name="filter" onChange={handleFilterChange} value={filterData}>
+        {/* Filter form section */}
+        <form id="filter-form" className="flex items-center gap-4">
+          <select
+            id="filter-select"
+            name="filter"
+            onChange={handleFilterChange}
+            value={filterData}
+            className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primaryColor"
+          >
             <option value="" disabled>---Filter---</option>
             <option value="EN">Entire Place</option>
             <option value="PR">Private Room</option>
@@ -73,16 +86,30 @@ function SortBar({ setListings }) {
             <option value="LU">Luxury Apartment</option>
           </select>
         </form>
-      </div>
 
-      <div>
-        <form id="sort-form">
-          <select id="sort-select" name="sort" onChange={handleSortChange} value={sortData}>
+        {/* Sort form section */}
+        <form id="sort-form" className="flex items-center gap-4">
+          <select
+            id="sort-select"
+            name="sort"
+            onChange={handleSortChange}
+            value={sortData}
+            className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primaryColor"
+          >
             <option value="" disabled>---Sort---</option>
             <option value="price">Maximum Price (highest first)</option>
             <option value="guests">By Maximum Number of Guests (most first)</option>
           </select>
         </form>
+
+        {/* Search Button - aligned to the right */}
+        <button
+          type="submit"
+          onClick={handleSearchSubmit}
+          className="ml-auto px-6 py-2 bg-primaryColor text-white rounded-md hover:bg-primaryColorDark focus:outline-none"
+        >
+          Search
+        </button>
       </div>
     </section>
   );
