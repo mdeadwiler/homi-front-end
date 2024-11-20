@@ -52,6 +52,7 @@ const signOut = () => {
   try {
     localStorage.removeItem("token");
     console.log("Signed out");
+    window.location.reload();
   } catch (error) {
     console.log(err.response.data.error);
     throw err;

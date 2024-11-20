@@ -9,20 +9,20 @@ export const MyUserInfo = ({ isHost }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    const loadUserData = async () => {
-      try {
-        const userData = await verifyToken();
-        setUser(userData);
-      } catch (err) {
-        setError("Failed to load user information.");
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     loadUserData();
   }, []);
+
+  const loadUserData = async () => {
+    try {
+      const userData = await verifyToken();
+      setUser(userData);
+    } catch (err) {
+      setError("Failed to load user information.");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -44,25 +44,19 @@ export const MyUserInfo = ({ isHost }) => {
 
   return (
     <div className="max-w-sm mx-auto p-6 bg-white flex flex-col items-center">
+      <h2 className="text-l mb-6 text-left  text-textColor">
+        Welcome {user.username}!
+      </h2>
       <img
         src={user.profile?.profile_pic || "default-profile-pic-url.jpg"}
-        alt="Profile"
+        alt="Profile Pic"
         className="w-32 h-32 rounded-full object-cover mb-4"
       />
-
-      <h2 className="text-2xl font-semibold mb-6 text-center text-textColor">
-        Account Information
-      </h2>
 
       <div className="text-left w-full">
         <div className="mb-4">
           <p className="text-gray-500 text-sm">Email:</p>
           <p className="text-textColor">{user.email}</p>
-        </div>
-
-        <div className="mb-4">
-          <p className="text-gray-500 text-sm">Username:</p>
-          <p className="text-textColor">{user.username}</p>
         </div>
 
         <div className="mb-4">
@@ -97,7 +91,7 @@ export const MyUserInfo = ({ isHost }) => {
         </div>
 
         {/* Update Profile Button */}
-        <div className="mt-6">
+        <div className="flex justify-center">
           <button
             onClick={openModal}
             className="bg-buttonColor text-white py-2 px-4 rounded hover:bg-alternativeColor"
@@ -111,6 +105,7 @@ export const MyUserInfo = ({ isHost }) => {
         isOpen={isModalOpen}
         closeModal={closeModal}
         user={user}
+        refreshUser={loadUserData} // Refresh user data after update
       />
     </div>
   );

@@ -88,7 +88,7 @@ function App() {
           onClose={() => setActiveModal(null)}
           customStyles={{ width: "400px", height: "350px", borderRadius: "10px" }}
           >
-          <SignIn onSubmit={handleSignIn} />
+          <SignIn onSubmit={handleSignIn} setActiveModal={setActiveModal} />
         </Rodal>
         <Footer />
       </>

@@ -1,29 +1,64 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { updateUser } from "../services";
 
-export const UpdateUserForm = ({ isOpen, closeModal, user }) => {
+export const UpdateUserForm = ({ isOpen, closeModal, user, refreshUser }) => {
   const [formData, setFormData] = useState({
-    username: user?.username || "", // Added username to the form data
+    username: user?.username || "",
     email: user?.email || "",
     first_name: user?.first_name || "",
     last_name: user?.last_name || "",
-    profile_pic: user?.profile?.profile_pic || "",
-    password: "",
+    profile: {
+      profile_pic: user?.profile?.profile_pic || "",
+      bio: user?.profile?.bio || "",
+    },
+    password: "", // Default to an empty string
   });
+
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    if (name === "profile_pic" || name === "bio") {
+      // Update nested profile data
+      setFormData((prevData) => ({
+        ...prevData,
+        profile: {
+          ...prevData.profile,
+          [name]: value,
+        },
+      }));
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // For now, we just log the data
-    console.log(formData);
-    // On submit, we close the modal for now (No backend connection yet)
-    closeModal();
+    try {
+      setError(null); // Clear any previous error
+
+      // Create a copy of formData, excluding password if it is blank
+      const dataToSubmit = { ...formData };
+      if (!dataToSubmit.password) {
+        delete dataToSubmit.password;
+      }
+
+      const updatedUser = await updateUser(dataToSubmit);
+      console.log("User updated successfully:", updatedUser);
+
+      // Refresh user data in the parent component
+      if (refreshUser) {
+        refreshUser(updatedUser);
+      }
+
+      closeModal();
+    } catch (err) {
+      console.error("Failed to update user:", err.message);
+      setError("Failed to update user profile. Please try again.");
+    }
   };
 
   return (
@@ -31,6 +66,9 @@ export const UpdateUserForm = ({ isOpen, closeModal, user }) => {
       <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
         <div className="bg-white rounded-lg p-6 w-96">
           <h2 className="text-2xl font-semibold mb-4">Update Profile</h2>
+
+          {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label htmlFor="username" className="block text-sm text-gray-500">
@@ -95,6 +133,20 @@ export const UpdateUserForm = ({ isOpen, closeModal, user }) => {
             </div>
 
             <div className="mb-4">
+              <label htmlFor="bio" className="block text-sm text-gray-500">
+                Bio
+              </label>
+              <textarea
+                id="bio"
+                name="bio"
+                value={formData.profile.bio}
+                onChange={handleChange}
+                className="w-full p-2 border border-gray-300 rounded mt-1"
+                rows="4"
+              />
+            </div>
+
+            <div className="mb-4">
               <label
                 htmlFor="profile_pic"
                 className="block text-sm text-gray-500"
@@ -105,7 +157,7 @@ export const UpdateUserForm = ({ isOpen, closeModal, user }) => {
                 type="text"
                 id="profile_pic"
                 name="profile_pic"
-                value={formData.profile_pic}
+                value={formData.profile.profile_pic}
                 onChange={handleChange}
                 className="w-full p-2 border border-gray-300 rounded mt-1"
               />

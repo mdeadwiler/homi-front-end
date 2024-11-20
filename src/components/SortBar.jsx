@@ -1,11 +1,18 @@
 import { useState } from 'react';
 import api from '../services/sub_services/apiConfig';
+import services from '../services/index.js'
 
-function SortBar({ setListings }) {
+function SortBar({ setListings, setSorting }) {
   const [filterData, setFilterData] = useState('');
   const [sortData, setSortData] = useState('');
   const [checkInDate, setCheckInDate] = useState('');
   const [checkOutDate, setCheckOutDate] = useState('');
+
+  const restoreListings = () => {
+    console.log('restoring listings')
+    setSorting(false)
+    setFilterData('')
+  };
 
   const handleFilterChange = (e) => {
     setFilterData(e.target.value);
@@ -29,9 +36,11 @@ function SortBar({ setListings }) {
 
   const fetchProperties = async (params) => {
     const queryString = new URLSearchParams(params).toString();
-    const response = await api.get(`/properties/?${queryString}`);
-    setListings(response.data);
+    const sortedProperties = await services.getProperties(queryString);
+    console.log('response in sortbar', sortedProperties)
+    setListings(sortedProperties);
   };
+
 
   return (
     <section id="sort-bar-section" className="w-full p-4 bg-backgroundColor shadow-md">
@@ -109,6 +118,14 @@ function SortBar({ setListings }) {
           className="ml-auto px-6 py-2 bg-primaryColor text-white rounded-md hover:bg-primaryColorDark focus:outline-none"
         >
           Search
+        </button>
+
+        <button
+          type="submit"
+          onClick={restoreListings}
+          className="ml-auto px-6 py-2 bg-primaryColor text-white rounded-md hover:bg-primaryColorDark focus:outline-none"
+        >
+          Reset
         </button>
       </div>
     </section>

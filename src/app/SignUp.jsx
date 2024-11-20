@@ -31,13 +31,11 @@ export const SignUp = ({ onSubmit }) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
 
-      <h2 className="text-2xl font-bold text-gray-800">Welcome To homi.</h2>
-      <h2>Register Here!</h2>
       
 
       <div>
 
-      <h2 className="text-2xl font-bold text-gray-800">Welcome To Homi.</h2>
+      <h2 className="text-2xl font-bold text-textColor">Welcome To Homi.</h2>
       <h2>Register Here!</h2>
 </div>
       <div>

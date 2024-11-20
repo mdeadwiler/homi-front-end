@@ -1,11 +1,9 @@
-import React from "react";
 //import { useContext } from 'react';
 import { NavLink } from "react-router-dom";
 //import { AuthedUserContext } from "../services/sub_services/userServices";
+import services from '../services/index.js'
 
 export const Sidebar = ({ setShowRegister, setShowLogin, user, setOpen }) => {
-
-
 
   const authenticatedOptions = (
     <>
@@ -22,7 +20,7 @@ export const Sidebar = ({ setShowRegister, setShowLogin, user, setOpen }) => {
      <li><NavLink className="nav-link" to="listing">
         Listings
       </NavLink></li>
-      <li><NavLink className="nav-link" to="/sign-out">
+      <li><NavLink className="nav-link" to="/" onClick={services.signOut}>
         Log Out
       </NavLink></li>
       </ul>
@@ -62,7 +60,6 @@ export const Sidebar = ({ setShowRegister, setShowLogin, user, setOpen }) => {
               setShowLogin(true)
               setOpen(false)
             }}>Log In</button>
-
           </li>
       </ul>
     </>
