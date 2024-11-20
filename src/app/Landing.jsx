@@ -8,9 +8,12 @@ export const Landing = () => {
   
   return (
     <main>
-      < LandingMap />
-      <div>
-        {/* < ListingCard /> */}
+      <h1 className="text-left p-4 text-2xl">Welcome to Homi</h1>
+      <div className="flex flex-row w-full h-5/6">
+        < LandingMap />
+        <div className="m-4 bg-alternativeColor w-1/2 h-full rounded-lg">
+          {/* < ListingCard /> */}
+        </div>
       </div>
     </main>
   );

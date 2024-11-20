@@ -5,7 +5,7 @@ import { Calendar } from "./Calendar";
 export const SingleLeft = () => {
 
   return (
-    <div className="flex flex-col p-6 space-y-8 w-full w-1/2 bg-whiteColor p-6 rounded-lg min-h-screen">
+    <div className="flex flex-col p-6 space-y-8 w-full bg-whiteColor p-6 rounded-lg min-h-screen">
       
       <FivePicture />
 

@@ -1,19 +1,51 @@
-import React, { useState } from "react";
-import { dummyUser } from "../dummy-data/dummy-user";
+import React, { useState, useEffect } from "react";
+import { verifyToken } from "../services";
+import { UpdateUserForm } from "./UpdateUserForm";
 
 export const MyUserInfo = ({ isHost }) => {
-  // Dummy data
-  const [user] = useState(dummyUser.dummyUser);
-  const [profile] = useState(dummyUser.dummyProfile);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleBecomeHost = () => {
-    alert("You are now a host! NOTE: THIS NEEDS TO CHANGE ONCE LOGIC COMES");
+  useEffect(() => {
+    const loadUserData = async () => {
+      try {
+        const userData = await verifyToken();
+        setUser(userData);
+      } catch (err) {
+        setError("Failed to load user information.");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadUserData();
+  }, []);
+
+  const openModal = () => {
+    setIsModalOpen(true);
   };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
+
+  // If the path is host-specific and the user is not a host, return a message
+  if (isHost && !user?.profile?.is_host) {
+    return <p>You do not have access to this page.</p>;
+  }
+
+  if (!user) return <p>No user data available.</p>;
 
   return (
     <div className="max-w-sm mx-auto p-6 bg-white flex flex-col items-center">
       <img
-        src={profile.profile_pic}
+        src={user.profile?.profile_pic || "default-profile-pic-url.jpg"}
         alt="Profile"
         className="w-32 h-32 rounded-full object-cover mb-4"
       />
@@ -35,33 +67,51 @@ export const MyUserInfo = ({ isHost }) => {
 
         <div className="mb-4">
           <p className="text-gray-500 text-sm">Name:</p>
-          <p className="text-textColor">{`${user.first_name} ${user.last_name}`}</p>
+          <p className="text-textColor">{`${user.first_name || "update"} ${
+            user.last_name || "profile"
+          }`}</p>
         </div>
+
+        {user.profile?.bio && (
+          <div className="mb-4">
+            <p className="text-gray-500 text-sm">Bio:</p>
+            <p className="text-textColor">{user.profile.bio}</p>
+          </div>
+        )}
 
         <div className="mb-4">
-          <p className="text-gray-500 text-sm">Bio:</p>
-          <p className="text-textColor">{profile.bio}</p>
+          {user.profile?.is_host ? (
+            <>
+              <p className="text-gray-500 text-sm">Profits:</p>
+              <p className="text-textColor">
+                ${user.profile?.profits?.toFixed(2)}
+              </p>
+            </>
+          ) : (
+            <div className="flex justify-center">
+              <button className="bg-buttonColor text-white py-2 px-4 rounded hover:bg-alternativeColor">
+                Become a Host!
+              </button>
+            </div>
+          )}
         </div>
 
-        {/* Use isHost prop for conditional rendering */}
-        {isHost ? (
-          <div className="mb-4">
-            <p className="text-gray-500 text-sm">Profits:</p>
-            <p className="text-textColor">${profile.profits.toFixed(2)}</p>
-          </div>
-        ) : (
+        {/* Update Profile Button */}
+        <div className="mt-6">
           <button
-            onClick={handleBecomeHost}
-            className="w-full bg-buttonColor text-white py-2 px-4 rounded-lg hover:bg-alternativeColor transition-colors duration-300 mb-4"
+            onClick={openModal}
+            className="bg-buttonColor text-white py-2 px-4 rounded hover:bg-alternativeColor"
           >
-            Become a Host
+            Update Profile
           </button>
-        )}
+        </div>
       </div>
-
-      <button className="w-full hover:bg-alternativeColor hover:text-lightTextColor py-2 px-4 rounded-lg bg-backgroundColor text-textColor transition-colors duration-300">
-        Update
-      </button>
+      {/* Modal */}
+      <UpdateUserForm
+        isOpen={isModalOpen}
+        closeModal={closeModal}
+        user={user}
+      />
     </div>
   );
 };

@@ -63,25 +63,6 @@ export const Sidebar = ({ setShowRegister, setShowLogin, user, setOpen }) => {
               setOpen(false)
             }}>Log In</button>
 
-            <button
-              onClick={() => {
-                setShowRegister(true);
-                setOpen(false);
-              }}
-            >
-              Register
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => {
-                setShowLogin(true);
-                setOpen(false);
-              }}
-            >
-              Log In
-            </button>
-
           </li>
       </ul>
     </>
