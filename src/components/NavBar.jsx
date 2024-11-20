@@ -4,7 +4,7 @@ import { FaSearch } from "react-icons/fa";
 import { Sidebar } from "./Sidebar";
 import { NavLink } from "react-router-dom";
 
-export const Navbar = ({ setShowRegister, setShowLogin }) => {
+export const Navbar = ({ setShowRegister, setShowLogin, user }) => {
   const [isOpen, setOpen] = useState(false);
 
   return (
@@ -30,6 +30,7 @@ export const Navbar = ({ setShowRegister, setShowLogin }) => {
           setOpen={setOpen}
           setShowRegister={setShowRegister}
           setShowLogin={setShowLogin}
+          user={user}
         />
       )}
     </nav>

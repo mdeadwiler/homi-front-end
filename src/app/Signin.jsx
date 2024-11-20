@@ -17,15 +17,23 @@ export const SignIn = ({ onSubmit }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userData = await signIn(formData);
+
+    const userData = await signIn(formData)
+
+
+
     onSubmit(userData);
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+
+      <h2 className="text-2xl font-bold text-gray-800 text-center mb-4">Log In</h2>
+
       <h2 className="text-2xl font-bold text-gray-800 text-center mb-4">
         Log In
       </h2>
+
 
       <div className="flex flex-col">
         <label htmlFor="username" className="text-sm font-medium text-gray-700">
@@ -62,7 +70,10 @@ export const SignIn = ({ onSubmit }) => {
       <div className="flex justify-center">
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500"
+
+          className="px-4 py-2 bg-buttonColor text-white rounded-md hover:bg-cardColor"
+
+
         >
           Log In
         </button>
@@ -70,3 +81,5 @@ export const SignIn = ({ onSubmit }) => {
     </form>
   );
 };
+
+
