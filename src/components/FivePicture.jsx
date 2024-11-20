@@ -10,7 +10,14 @@ export const FivePicture = () => {
   useEffect(() => {
 
     if (listing) {
-      setPhotos(listing.photos)
+
+      let listingPhotos = Array.from(listing.photos)
+
+      if (listing.photos.length > 5) {
+        listingPhotos.length = 5
+      }
+
+      setPhotos(listingPhotos)
     }
 
   }, [listing])
@@ -27,7 +34,7 @@ export const FivePicture = () => {
           alt={listing.title}
           className="w-full h-full object-cover rounded-lg"
         />
-        
+
       })) : 
       (<p>Photos not loaded yet...</p>)
       }
