@@ -130,7 +130,7 @@ const putProperty = async (id, formData) => {
     try {
 
         console.log("services: updating property with id ", id)
-        const response = await api.put(`properties/${id}/`, formData)
+        const response = await api.patch(`properties/${id}/`, formData)
         return response.data
 
     } catch (err) {

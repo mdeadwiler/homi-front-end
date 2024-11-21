@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState, useRef } from 'react';
 
+import { AppContext } from '../App.jsx';
+
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
@@ -45,7 +47,7 @@ export const LandingMap = () => {
 
     return (
 
-        <div className="m-4 w-1/2 h-full">
+        <div className="w-full h-[90%]">
             { loading && (<p>No map yet</p>)}
 
             <div ref={landingMapRef} 

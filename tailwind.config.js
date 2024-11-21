@@ -17,6 +17,9 @@ export default {
       fontFamily: {
         sans: ["Quicksand", "sans-serif"],
         serif: ["Montserrat", "serif"]
+      },
+      maxHeight: {
+        'amenities': '30rem',
       }
     },
   },

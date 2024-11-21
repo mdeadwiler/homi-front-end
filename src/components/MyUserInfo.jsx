@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { verifyToken } from "../services";
+import { verifyToken, updateUser } from "../services";
 import { UpdateUserForm } from "./UpdateUserForm";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export const MyUserInfo = ({ isHost }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation(); // Get the current URL path
 
   useEffect(() => {
     loadUserData();
@@ -32,6 +35,30 @@ export const MyUserInfo = ({ isHost }) => {
     setIsModalOpen(false);
   };
 
+  const handleBecomeHost = async () => {
+    try {
+      const updatedUser = await updateUser({
+        profile: {
+          is_host: true,
+        },
+      });
+      setUser(updatedUser);
+      alert("You are now a host!");
+    } catch (err) {
+      console.error("Error becoming a host:", err);
+      setError("Failed to update profile.");
+    }
+  };
+
+  const handleSwitchView = () => {
+    // Switch between 'guest' and 'host' view based on the current URL
+    if (location.pathname.includes("guest")) {
+      navigate("/dashboard/host");
+    } else {
+      navigate("/dashboard/guest");
+    }
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
@@ -44,7 +71,7 @@ export const MyUserInfo = ({ isHost }) => {
 
   return (
     <div className="max-w-sm mx-auto p-6 bg-white flex flex-col items-center">
-      <h2 className="text-l mb-6 text-left  text-textColor">
+      <h2 className="text-l mb-6 text-left text-textColor">
         Welcome {user.username}!
       </h2>
       <img
@@ -73,39 +100,54 @@ export const MyUserInfo = ({ isHost }) => {
           </div>
         )}
 
-        <div className="mb-4">
+        {/* Show profits only if the current path is "/dashboard/host" */}
+        {location.pathname.includes("host") && user.profile?.is_host && (
+          <div className="mb-4">
+            <p className="text-gray-500 text-sm">Profits:</p>
+            <p className="text-textColor">
+              ${user.profile?.profits?.toFixed(2)}
+            </p>
+          </div>
+        )}
+
+        {/* Become a Host button or switch view button */}
+        <div className="flex justify-center">
           {user.profile?.is_host ? (
-            <>
-              <p className="text-gray-500 text-sm">Profits:</p>
-              <p className="text-textColor">
-                ${user.profile?.profits?.toFixed(2)}
-              </p>
-            </>
+            <button
+              onClick={handleSwitchView}
+              className="bg-buttonColor text-white py-2 px-4 rounded hover:bg-alternativeColor"
+            >
+              {location.pathname.includes("guest")
+                ? "Switch to Host View"
+                : "Switch to Guest View"}
+            </button>
           ) : (
-            <div className="flex justify-center">
-              <button className="bg-buttonColor text-white py-2 px-4 rounded hover:bg-alternativeColor">
-                Become a Host!
-              </button>
-            </div>
+            <button
+              onClick={handleBecomeHost}
+              className="bg-buttonColor text-whiteColor py-2 px-4 rounded hover:bg-alternativeColor"
+            >
+              Become a Host!
+            </button>
           )}
         </div>
 
         {/* Update Profile Button */}
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-4">
           <button
             onClick={openModal}
-            className="bg-buttonColor text-white py-2 px-4 rounded hover:bg-alternativeColor"
+            className="bg-buttonColor text-whiteColor py-2 px-4 rounded hover:bg-alternativeColor"
           >
             Update Profile
           </button>
         </div>
       </div>
+
       {/* Modal */}
       <UpdateUserForm
         isOpen={isModalOpen}
         closeModal={closeModal}
         user={user}
-        refreshUser={loadUserData} // Refresh user data after update
+        refreshUser={loadUserData}
       />
     </div>
   );

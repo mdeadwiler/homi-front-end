@@ -55,10 +55,10 @@ export function ListingMap() {
 
     
     return (
-        <div className="w-full h-1/3 p-4">
+        <div className="w-full h-1/3 p-4 z-0">
             { loading && (<p>No map yet</p>)}
             <div ref={mapContainerRef} 
-            className="w-full h-full rounded-lg"
+            className="w-full h-full rounded-lg z-0"
             ></div>
         </div>
         

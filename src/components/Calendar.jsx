@@ -80,35 +80,35 @@ export const Calendar = () => {
   ];
 
   return (
-    <div className="max-w-3xl mx-auto p-4 bg-whiteColor shadow-lg rounded-lg">
-      <div className="flex justify-between items-center mb-4">
-        <button
-          onClick={() => navigateMonth(-1)}
-          className="p-2 rounded hover:bg-buttonColor"
-          disabled={currentMonth <= new Date()} // Prevent navigating to past months
-        >
-          {"<"}
-        </button>
-
-        <button
-          onClick={() => navigateMonth(1)}
-          className="p-2 rounded  hover:bg-buttonColor"
-        >
-          {">"}
-        </button>
-      </div>
-
+    <div className="max-w-full sm:max-w-xl mx-auto p-4 bg-whiteColor rounded-lg">
       <div className="grid grid-cols-1 gap-8">
         {monthsToDisplay.map((month, index) => {
           const days = getDaysInMonth(month.getFullYear(), month.getMonth());
           return (
             <div key={index}>
-              <h3 className="text-lg font-medium text-center mb-2 bg-backgroundColor text-textColor">
-                {month.toLocaleString("default", {
-                  month: "long",
-                  year: "numeric",
-                })}
-              </h3>
+              {/* Adjusted Month Header with Buttons */}
+              <div className="flex items-center justify-between mb-2 bg-backgroundColor p-2 rounded">
+                <button
+                  onClick={() => navigateMonth(-1)}
+                  className="p-2 rounded hover:bg-buttonColor"
+                  disabled={currentMonth <= new Date()} // Prevent navigating to past months
+                >
+                  {"<"}
+                </button>
+                <h3 className="text-lg font-medium text-textColor">
+                  {month.toLocaleString("default", {
+                    month: "long",
+                    year: "numeric",
+                  })}
+                </h3>
+                <button
+                  onClick={() => navigateMonth(1)}
+                  className="p-2 rounded hover:bg-buttonColor"
+                >
+                  {">"}
+                </button>
+              </div>
+
               <div className="grid grid-cols-7 gap-2">
                 {daysOfWeek.map((day) => (
                   <div
@@ -126,8 +126,8 @@ export const Calendar = () => {
                       !isPastDate(date) &&
                       !isBooked(date) &&
                       handleDateClick(date)
-                    } // Disable click on past or booked dates
-                    disabled={isPastDate(date) || isBooked(date)} // Disable the button entirely for past or booked dates
+                    }
+                    disabled={isPastDate(date) || isBooked(date)}
                     className={`p-2 rounded-full w-10 h-10 flex items-center justify-center ${
                       selectedRange.start &&
                       selectedRange.start.toDateString() ===

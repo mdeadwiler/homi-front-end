@@ -6,6 +6,7 @@ import { Dashboard } from "./app/Dashboard";
 import { Landing } from "./app/Landing";
 import { Listings } from "./app/Listings";
 import { ListingForm } from "./app/ListingForm";
+import { EditListingForm } from "./app/EditListingForm";
 import { SignIn } from "./app/Signin";
 import { SignUp } from "./app/SignUp";
 import { SingleListingBooking } from "./app/SingleListingBooking";
@@ -23,7 +24,7 @@ export function AppRoutes({}) {
         <Route path="/dashboard/host" element={<Dashboard />} />
         <Route path="/dashboard/guest" element={<Dashboard />} />
         <Route path="/listing-form" element={<ListingForm />} />
-        <Route path="/listing-form/:listingId" element={<ListingForm />} />
+        <Route path="/listing-form/:id/edit" element={<EditListingForm />} />
         <Route
           path="/listing/:listingId/owner"
           element={<SingleListingBooking />}
