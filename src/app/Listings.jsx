@@ -68,8 +68,8 @@ export const Listings = () => {
 
   return (
 
-    <main>
-      <h1 className="text-left mb-6 text-2xl">All Listings</h1>
+    <main className="size-fit">
+      <h1 className=" text-left mb-6 text-2xl">All Listings</h1>
 
       <SortBar setListings={setListings} setSorting={setSorting}/>
 

@@ -113,7 +113,7 @@ export const ListingForm = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex justify-center items-center ">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-screen-lg p-8 rounded-lg shadow-lg text-white"
@@ -388,7 +388,7 @@ export const ListingForm = () => {
             />
           </div>
 
-          {/* Max Guesets */}
+          {/* Max Guests */}
           <div className="flex items-center mb-4">
             <label
               htmlFor="maxGuests"

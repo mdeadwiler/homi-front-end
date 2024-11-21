@@ -45,7 +45,13 @@ export function ListingMap() {
             zoom: 14
         });
 
-        new mapboxgl.Marker({ color: '#65B6A3', rotation: 0 })
+        const el = document.createElement('div');
+        el.style.backgroundImage = `url('../../public/marker.png')`; // Set the PNG image
+        el.style.backgroundSize = 'contain'; // Ensure the image fits
+        el.style.width = '40px'; // Set marker width
+        el.style.height = '40px'; // Set marker height
+
+        new mapboxgl.Marker(el, { offset: [0, -20] })
         .setLngLat([lng, lat])
         .addTo(map);
 

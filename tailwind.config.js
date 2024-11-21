@@ -19,7 +19,7 @@ export default {
         serif: ["Montserrat", "serif"]
       },
       maxHeight: {
-        'amenities': '30rem',
+        'amenities': '20rem',
       }
     },
   },

@@ -30,7 +30,7 @@ const getUser = () => {
   const token = localStorage.getItem("token");
   if (!token) return null;
   const user = JSON.parse(atob(token.split(".")[1]));
-  console.log(user);
+  // console.log(user);
   return user;
 };
 
@@ -40,7 +40,7 @@ const verifyToken = async () => {
   if (token) {
     const response = await api.get("users/token/refresh/");
     localStorage.setItem("token", response.data.access);
-    console.log("the user is ", response.data.user);
+    // console.log("the user is ", response.data.user);
     return response.data.user;
   }
 
@@ -52,6 +52,7 @@ const signOut = () => {
   try {
     localStorage.removeItem("token");
     console.log("Signed out");
+    ;
   } catch (error) {
     console.log(err.response.data.error);
     throw err;

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export function ListingCard({ listing }) {
-  console.log(listing);
+  // console.log(listing);
   return (
     <Link
       to={`/listing/${listing.id}`}
