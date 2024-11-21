@@ -29,7 +29,7 @@ export function AppRoutes({}) {
           path="/listing/:listingId/owner"
           element={<SingleListingBooking />}
         />
-        <Route path="/booking/:listingId" element={<SingleListingBooking />} />
+        <Route path="/listing/:listingId/booking/:bookingId" element={<SingleListingBooking />} />
         <Route path="/mylistings" element={<Listings />} />
       </>
       <>

@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { dummyBookingsRB } from "../dummy-data/dummy-bookings-rb";
+import { useState, useEffect } from "react";
 
-export const Calendar = () => {
+export const Calendar = ({ bookings }) => {
   const [selectedRange, setSelectedRange] = useState({
     start: null,
     end: null,
@@ -14,14 +13,12 @@ export const Calendar = () => {
   today.setHours(0, 0, 0, 0);
 
   // Check if the date is before today (and prevent clicking on it)
-  const isPastDate = (date) => {
-    return date && date < today;
-  };
+  const isPastDate = (date) => date && date < today;
 
   // Check if a date is booked
   //NOTE: THIS IS WHERE WE FETCH API FROM BACKEND TO CONFIRM IF IT IS BOOKED
   const isBooked = (date) => {
-    return dummyBookingsRB.some((booking) => {
+    return bookings.some((booking) => {
       const checkIn = new Date(booking.check_in_date);
       const checkOut = new Date(booking.check_out_date);
       return date >= checkIn && date <= checkOut;

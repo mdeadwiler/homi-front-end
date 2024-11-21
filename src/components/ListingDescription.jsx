@@ -41,6 +41,7 @@ export const ListingDescription = ({ property }) => {
         <li>Max Guests: <span className="text-logoColor font-semibold">{info.max_guests}</span></li>
         <li>Property Type: <span className="text-logoColor font-semibold">{info.property_type}</span></li>
         <li>Cancellation Policy: <span className="text-logoColor font-semibold">{info.cancellation_policy}</span></li>
+        <li>Cleaning fee: <span className="text-logoColor font-semibold">${info.cleaning_fee}</span></li>
       </ul>
       
       <p className="text-left text-lg">

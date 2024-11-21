@@ -35,7 +35,7 @@ export const Landing = () => {
     <main className="flex lg:flex-row flex-col w-full h-full">
 
         <div className="m-4 w-1/2 lg:h-full flex-col">
-          <h1 className="text-left text-2xl h-[10%]">homi is where you find your next homey stay</h1>
+          <h1 className="text-left text-2xl h-[10%]"><span className="text-logoColor">homi</span> is where you find your next <span className="text-logoColor">homey</span> stay</h1>
           < LandingMap />
         </div>
 
@@ -51,7 +51,7 @@ export const Landing = () => {
                   {recentListings.length === 0 ? (null) : (
 
                     recentListings.map((listing) => {
-                      return <ListingCard key={listing.id} listing={listing} />
+                      return <ListingCard key={listing.id} listing={listing} origin={"landing"} bookingId={null}/>
                     })
 
                   )}

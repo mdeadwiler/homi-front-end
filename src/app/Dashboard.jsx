@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { AppContext } from '../App.jsx'
 import { useLocation } from "react-router-dom";
 import { MyUserInfo } from "../components/MyUserInfo";
 import { HostBookings } from "../components/MyBookingsListings";
@@ -15,6 +16,12 @@ export const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  const [prevBookings, setPrevBookings] = useState([])
+
+  const { bookings } = useContext(AppContext)
+
+
+
   // Fetch upcoming bookings when the component mounts
   useEffect(() => {
     if (!isHost) {
@@ -22,7 +29,6 @@ export const Dashboard = () => {
       const fetchUpcomingBookings = async () => {
         try {
           const bookings = await getUpcoming();
-          console.log(bookings);
           setUpcomingBookings(bookings);
         } catch (error) {
           console.error("Error fetching upcoming bookings:", error);
@@ -32,6 +38,7 @@ export const Dashboard = () => {
       fetchUpcomingBookings();
     }
   }, [isHost]); // Re-run when `isHost` changes
+
 
   useEffect(() => {
     if (isHost) {
@@ -64,8 +71,37 @@ export const Dashboard = () => {
     }
   }, [isHost]);
 
+
+  useEffect(() => {
+
+    if (bookings) {
+
+      let prevData = []
+      bookings.forEach(booking => {
+
+        if (booking.prop) {
+          if (booking.prop.address) {
+            let prevInstance = {
+              latitude: booking.prop.address.latitude,
+              longitude: booking.prop.address.longitude,
+              title: booking.prop.title,
+              check_in: booking.check_in_date,
+              check_out: booking.check_out_date
+            }
+            prevData.push(prevInstance)
+          }
+        }
+
+      })
+
+      setPrevBookings(prevData);
+
+    }
+
+  }, [bookings])
+
   return (
-    <main className="flex flex-center  h-full gap-x-6">
+    <main className="flex flex-center h-full gap-x-6">
       {/* Left Column */}
       <div className="w-2/6 bg-whiteColor p-4 rounded-lg overflow-y-auto">
         <MyUserInfo isHost={isHost} />
@@ -75,13 +111,13 @@ export const Dashboard = () => {
       <div className="w-3/6  overflow-y-auto bg-alternativeColor p-4 rounded-lg">
         {isHost ? (
           <div>
-            <p>Your Active Listings</p>
+            <p className="text-lightTextColor">Your Active Listings</p>
             <div className="flex   flex-wrap gap-4">
               {loading ? (
                 <p>Loading...</p>
               ) : myProperties.length > 0 ? (
                 myProperties.map((property) => (
-                  <ListingCard key={property.id} listing={property.prop} />
+                  <ListingCard key={property.id} listing={property.prop} bookingId={null} origin={"dashboard-host"} />
                 ))
               ) : (
                 <p>No active listings.</p>
@@ -90,12 +126,16 @@ export const Dashboard = () => {
           </div>
         ) : (
           <div>
-            <p>Your Upcoming Bookings</p>
+            <p className="text-lightTextColor">Your Upcoming Bookings</p>
             <div className="flex flex-wrap gap-4">
               {upcomingBookings.length > 0 ? (
-                upcomingBookings.map((booking) => (
-                  <ListingCard key={booking.id} listing={booking.prop} />
-                ))
+                upcomingBookings.map((booking) => {
+                  return <ListingCard 
+                    bookingId={booking.id} 
+                    listing={booking.prop} 
+                    origin={"dashboard"}
+                    booking={booking} />
+                })
               ) : (
                 <p>No upcoming bookings.</p>
               )}
@@ -105,8 +145,16 @@ export const Dashboard = () => {
       </div>
 
       {/* Right Column */}
-      <div className="w-2/6 bg-whiteColor p-4 rounded-lg overflow-y-auto">
-        {isHost ? <HostBookings hostBookings={hostBookings} /> : <BookingMap />}
+      <div className="w-2/6 h-full bg-whiteColor p-4 rounded-lg overflow-y-auto">
+        {isHost ? (<h1>Bookings of my listings</h1>) : <h1>Your Previous Bookings</h1>}
+        {isHost ? (<HostBookings hostBookings={hostBookings} />) : (
+          prevBookings.length > 0 ? (
+            prevBookings.map((prev, i) => {
+              return <BookingMap prev={prev} key={i}/>
+            })
+          ) : (null)
+        
+        )}
       </div>
     </main>
   );

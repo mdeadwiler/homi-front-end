@@ -61,7 +61,7 @@ export const BookingForm = ({
   };
 
   return (
-    <div className="relative p-6 bg-white rounded-lg shadow-lg z-50">
+    <div className="relative p-6 bg-white rounded-lg shadow-lg z-80">
       {/* Close button */}
       <button
         onClick={onClose}

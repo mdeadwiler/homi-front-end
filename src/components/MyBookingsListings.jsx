@@ -1,9 +1,7 @@
-import React from "react";
 
 export const HostBookings = ({ hostBookings }) => {
   return (
     <div className="max-w-md mx-auto mt-5">
-      <h1 className="text-xl mb-4 text-left">Bookings of my listings</h1>
       <div className="flex flex-col space-y-4">
         {hostBookings.length > 0 ? (
           hostBookings.map((booking) => (

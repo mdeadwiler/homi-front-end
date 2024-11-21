@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState, useRef } from 'react';
 
-import { AppContext } from '../App.jsx';
+import App, { AppContext } from '../App.jsx';
 
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -20,6 +20,40 @@ export const LandingMap = () => {
     const [lat, setLat] = useState([40.7128])
     const [lng, setLng] = useState([-74.0060])
     const [loading, setLoading] = useState(true)
+    const [markers, setMarkers] = useState([])
+
+    const { properties } = useContext(AppContext)
+
+    useEffect(() => {
+
+        if (properties) {
+
+            if (properties.length > 0) {
+
+                let markerCollection = []
+                properties.forEach(property => {
+
+                    if (property.address) {
+
+                        let newMarker = {
+                            latitude: property.address.latitude,
+                            longitude: property.address.longitude
+                        }
+                        markerCollection.push(newMarker)
+
+                    }
+
+                })
+
+                // console.log('markerCollection is ', markerCollection)
+                setMarkers(markerCollection)
+
+            }
+
+        }
+
+    }, [properties])
+
 
     useEffect(() => {
 
@@ -37,13 +71,39 @@ export const LandingMap = () => {
             zoom: 2.7
         });
 
-        // new mapboxgl.Marker({ color: '#65B6A3', rotation: 0 })
-        // .setLngLat([lng[0], lat[0]])
-        // .addTo(map);
+        
+        if (markers.length > 0) {
+            
+            // markers.forEach(marker => {
+
+            //     new mapboxgl.Marker({ color: '#65B6A3', rotation: 0 })
+            //     .setLngLat([marker.longitude, marker.latitude])
+            //     .addTo(map);
+
+            // })
+
+            markers.forEach(marker => {
+                // Create a custom HTML element for the marker
+                const el = document.createElement('div');
+                el.style.backgroundImage = `url('../../public/marker.png')`; // Set the PNG image
+                el.style.backgroundSize = 'contain'; // Ensure the image fits
+                el.style.width = '40px'; // Set marker width
+                el.style.height = '40px'; // Set marker height
+        
+                // Add the custom marker to the map
+                new mapboxgl.Marker(el, { offset: [0, -20] })
+                    .setLngLat([marker.longitude, marker.latitude])
+                    .addTo(map);
+            });
+
+        }
+
+
 
         return () => map.remove();
 
-    }, [landingMapRef, MAPBOX_KEY])
+    }, [landingMapRef, MAPBOX_KEY, markers])
+
 
     return (
 

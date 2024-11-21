@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { signIn } from "../services/sub_services/userServices";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 
 
 
 
 export const SignIn = ({ onSubmit, setActiveModal }) => {
+  const  navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -29,6 +30,8 @@ export const SignIn = ({ onSubmit, setActiveModal }) => {
 
 
     onSubmit(userData);
+    navigate("/dashboard/guest")
+   window.location.reload()
   };
 
   return (

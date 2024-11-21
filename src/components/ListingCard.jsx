@@ -1,11 +1,37 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-export function ListingCard({ listing }) {
-  console.log(listing);
+export function ListingCard({ listing, origin, bookingId, booking }) {
+
+  const location = useLocation();
+  const [dates, setDates] = useState({
+    check_in: "N/A",
+    check_out: "N/A"
+  })
+
+
+  useEffect(() => {
+    console.log('in listing card booking is ', booking)
+    console.log('booking id is', bookingId)
+    if (bookingId && booking) {
+      console.log("inside the block")
+      setDates({
+        check_in: booking.check_in_date,
+        check_out: booking.check_out_date
+      })
+    }
+
+  }, [booking])
+
+
   return (
     <Link
-      to={`/listing/${listing.id}`}
+      to={origin === "dashboard" && bookingId ? (
+        `/listing/${listing.id}/booking/${bookingId}`) : ( origin === "dashboard-host" ? (
+          `/listing/${listing.id}/owner`) : (
+          `/listing/${listing.id}`))
+        }
+
       className="block 
         2xl:w-72 2xl:h-72
         w-60 h-60
@@ -30,13 +56,35 @@ export function ListingCard({ listing }) {
           {listing.title}
         </p>
 
-        <p className="text-xs text-gray-600 mt-1">
-          from{" "}
-          <span className="text-alternativeColor font-semibold">
-            ${listing.price_per_night}
-          </span>{" "}
-          a day
-        </p>
+
+        { bookingId ? (
+
+            <p className="text-xs text-gray-600 mt-1">
+            from{" "}
+            <span className="text-alternativeColor font-semibold">
+              {dates.check_in}
+            </span>{" "}
+            to{" "}
+            <span className="text-alternativeColor font-semibold">
+              {dates.check_out}
+            </span>{" "}
+            </p> 
+          
+          ) : (
+
+            <p className="text-xs text-gray-600 mt-1">
+            from{" "}
+            <span className="text-alternativeColor font-semibold">
+              ${listing.price_per_night}
+            </span>{" "}
+            a day
+            </p>
+          
+          ) 
+        }
+        
+
+
       </div>
     </Link>
   );

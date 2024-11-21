@@ -69,7 +69,14 @@ export const SingleListingBooking = () => {
 
       <main>
         <div className="w-full flex flex-col sm:flex-row justify-between mb-6">
-          {loading ? (null) : (<h1 className="text-left text-2xl">{listing.title}</h1>)}
+          {loading ? (null) : (
+
+            location.pathname.includes("booking") ? (<h1 className="text-left text-2xl">
+              <span className="text-logoColor">Your booking at: </span>  
+              {listing.title}</h1>) : (<h1 className="text-left text-2xl"> {listing.title}</h1>)
+            
+            )
+          }
           <Link to="/listings" className="text-logoColor underline hover:text-textColor">back to listings</Link>
         </div>
         <div className="w-full h-[90%] flex flex-row gap-x-6">
