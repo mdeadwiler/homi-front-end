@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Rodal from "rodal";
+import "rodal/lib/rodal.css";
 import { getAmenities } from "../services/sub_services/amenityServices";
 import { postProperty } from "../services/sub_services/propertyServices";
 
@@ -20,52 +22,58 @@ export const ListingForm = () => {
     amenities: [],
   });
   const [photos, setPhotos] = useState([{ link: "" }]);
-  const [amenities, setAmenities] = useState([])
+  const [amenities, setAmenities] = useState([]);
+  
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const fetchAmenities = async () => {
     try {
-      const amenitiesData = await getAmenities()
-      setAmenities(amenitiesData)
+      const amenitiesData = await getAmenities();
+      setAmenities(amenitiesData);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
-  useEffect(()=>{
-    fetchAmenities()
-  }, [])
+  useEffect(() => {
+    fetchAmenities();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
   const handleCheckboxChange = (amenityId) => {
     const updatedAmenities = formData.amenities.includes(amenityId)
       ? formData.amenities.filter((item) => item.id !== amenityId)
       : [...formData.amenities, amenityId];
     setFormData({ ...formData, amenities: updatedAmenities });
   };
-
   // Handle input change for a specific index
   const handlePhotoChange = (index, value) => {
     const updatedPhotos = [...photos];
     updatedPhotos[index] = { link: value };
     setPhotos(updatedPhotos);
   };
-
   // Add a new input field
   const addImageInput = () => {
     if (photos.length < 5) {
-      setPhotos([...photos, { link: "" }]);
+      setPhotos((prevPhotos) => [...prevPhotos, { link: "" }]);
+    }
+  };
+
+  const removeImageInput = (idx) => {
+    if (photos.length > 1) {
+      const updatedPhotos = [...photos];
+      updatedPhotos.splice(idx, 1);
+      setPhotos(updatedPhotos);
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const updatedFormData = {
       ...formData,
       address: {
@@ -73,42 +81,43 @@ export const ListingForm = () => {
         city: formData.city,
         state: formData.state,
         zip_code: formData.zip_code,
-      }
-    }
-    
-    delete updatedFormData.street
-    delete updatedFormData.city
-    delete updatedFormData.state
-    delete updatedFormData.zip_code
+      },
+    };
+
+    delete updatedFormData.street;
+    delete updatedFormData.city;
+    delete updatedFormData.state;
+    delete updatedFormData.zip_code;
 
     const propertyTypeLookup = {
-       'Entire Place': 'EN',
-       'Private Room': 'PR',
-       'Shared Room': 'SH',
-       'Vacation Home': 'VA',
-       'Loft': 'LO',
-       'Hostel': 'HO',
-       'Mansion': 'MA',
-       'Villa': 'VI',
-       'Castle': 'CA',
-       'Luxury Apartment': 'LU',
-    }
+      "Entire Place": "EN",
+      "Private Room": "PR",
+      "Shared Room": "SH",
+      "Vacation Home": "VA",
+      Loft: "LO",
+      Hostel: "HO",
+      Mansion: "MA",
+      Villa: "VI",
+      Castle: "CA",
+      "Luxury Apartment": "LU",
+    };
 
-    updatedFormData.property_type = propertyTypeLookup[updatedFormData.property_type]
+    updatedFormData.property_type =
+      propertyTypeLookup[updatedFormData.property_type];
 
-    updatedFormData.photos = photos
-    
-    await postProperty(updatedFormData)
+    updatedFormData.photos = photos;
 
-    navigate("/dashboard/host")
+    await postProperty(updatedFormData);
+
+    navigate("/dashboard/host");
   };
 
   return (
     <div className="flex justify-center items-center min-h-screen">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-screen-lg p-8 bg-alternativeColor rounded-lg shadow-lg text-white"
-       
+        className="w-full max-w-screen-lg p-8 rounded-lg shadow-lg text-white"
+        style={{ backgroundColor: "#417367" }}
       >
         <div className="grid grid-cols-2 gap-8">
           {/* Title */}
@@ -129,51 +138,58 @@ export const ListingForm = () => {
 
           {/* Description */}
           <div className="flex items-center">
-            <label htmlFor="description" className="block text-sm font-bold w-1/3">
+            <label
+              htmlFor="description"
+              className="block text-sm font-bold w-1/3"
+            >
               Description:
             </label>
-            <textarea
+            <input
+              type="textarea"
               id="description"
               name="description"
               value={formData.description}
               onChange={handleChange}
-              className="w-full p-2 h-24 rounded-md bg-white text-gray-900 focus:outline-none"
+              className="w-full p-2 rounded-md bg-white text-gray-900 focus:outline-none"
               placeholder="Describe the property"
-            ></textarea>
+            />
           </div>
 
           {/* State Dropdown */}
-            <div className="flex items-center mb-4">
-              <label htmlFor="propertyType" className="block text-sm font-bold w-1/3">
-                Property Type:
-              </label>
-              <select
-                id="propertyType"
-                name="property_type"
-                value={formData.property_type}
-                onChange={handleChange}
-                className="w-full p-2 rounded-md bg-white text-gray-900 focus:outline-none"
-              >
-                <option value="" disabled>
-                  Select a Property Type
+          <div className="flex items-center mb-4">
+            <label
+              htmlFor="propertyType"
+              className="block text-sm font-bold w-1/3"
+            >
+              Property Type:
+            </label>
+            <select
+              id="propertyType"
+              name="property_type"
+              value={formData.property_type}
+              onChange={handleChange}
+              className="w-full p-2 rounded-md bg-white text-gray-900 focus:outline-none"
+            >
+              <option value="" disabled>
+                Select a Property Type
+              </option>
+              {[
+                "Private Room",
+                "Shared Room",
+                "Vacation Home",
+                "Loft",
+                "Hostel",
+                "Mansion",
+                "Villa",
+                "Castle",
+                "Luxury Apartment",
+              ].map((propertyType) => (
+                <option key={propertyType} value={propertyType}>
+                  {propertyType}
                 </option>
-                {[
-                  'Private Room',
-                  'Shared Room',
-                  'Vacation Home',
-                  'Loft',
-                  'Hostel',
-                  'Mansion',
-                  'Villa',
-                  'Castle',
-                  'Luxury Apartment'
-                ].map((propertyType) => (
-                  <option key={propertyType} value={propertyType}>
-                    {propertyType}
-                  </option>
-                ))}
-              </select>
-            </div>
+              ))}
+            </select>
+          </div>
 
           {/* Address Fields */}
           <div>
@@ -204,7 +220,6 @@ export const ListingForm = () => {
                 className="w-full p-2 rounded-md bg-white text-gray-900 focus:outline-none"
               />
             </div>
-
             {/* State Dropdown */}
             <div className="flex items-center mb-4">
               <label htmlFor="state" className="block text-sm font-bold w-1/3">
@@ -278,7 +293,6 @@ export const ListingForm = () => {
                 ))}
               </select>
             </div>
-
             <div className="flex items-center mb-4">
               <label htmlFor="zip" className="block text-sm font-bold w-1/3">
                 Zip Code:
@@ -293,7 +307,6 @@ export const ListingForm = () => {
               />
             </div>
           </div>
-
           {/* Cancellation Policy */}
           <div className="flex items-center mb-4">
             <label
@@ -319,12 +332,30 @@ export const ListingForm = () => {
                 Moderate: Full refund 5 days prior
               </option>
               <option value="Strict">Strict: Full refund 7 days prior</option>
+              <option value="Long-Term">
+                Long-Term: Receive a full refund if canceled at least 30 days
+                before check-in; no refund after that
+              </option>
+              <option value="Super Strict 30 Days">
+                Super Strict 30 Days: "You will receive half a refund if
+                canceled at least 30 days before check-in; no refund after that
+              </option>
+              <option value="Super Strict 60 Days">
+                Super Strict 60 Days: "You will receive half a refund if
+                canceled at least 60 days before check-in; no refund after that
+              </option>
+              <option value="Non-Refundable">
+                No Refund if canceled at any time
+              </option>
             </select>
           </div>
 
           {/* Cleaning Fee */}
           <div className="flex items-center mb-4">
-            <label htmlFor="cleaningFee" className="block text-sm font-bold w-1/3">
+            <label
+              htmlFor="cleaningFee"
+              className="block text-sm font-bold w-1/3"
+            >
               Cleaning Fee ($):
             </label>
             <input
@@ -340,7 +371,10 @@ export const ListingForm = () => {
 
           {/* Price Per Night */}
           <div className="flex items-center mb-4">
-            <label htmlFor="pricePerNight" className="block text-sm font-bold w-1/3">
+            <label
+              htmlFor="pricePerNight"
+              className="block text-sm font-bold w-1/3"
+            >
               Price Per Night ($):
             </label>
             <input
@@ -356,7 +390,10 @@ export const ListingForm = () => {
 
           {/* Max Guesets */}
           <div className="flex items-center mb-4">
-            <label htmlFor="maxGuests" className="block text-sm font-bold w-1/3">
+            <label
+              htmlFor="maxGuests"
+              className="block text-sm font-bold w-1/3"
+            >
               Max. Guests:
             </label>
             <input
@@ -370,6 +407,44 @@ export const ListingForm = () => {
             />
           </div>
 
+          <div className="mb-6">
+            <h2 className="text-center text-lg font-bold text-gray-200 mb-4">
+              Add Images
+            </h2>
+            {photos.map((photo, index) => (
+              <div key={index} className="flex items-center space-x-4 mb-4">
+                <label className="text-sm font-medium text-gray-200 mb-2">
+                  Image {index + 1} URL:
+                </label>
+                <input
+                  type="text"
+                  value={photo.link}
+                  onChange={(e) => handlePhotoChange(index, e.target.value)}
+                  placeholder="Enter image URL"
+                  className="w-full p-2 rounded-md bg-white text-gray-900 focus:outline-none"
+                />
+                {index === 0 ? null : (
+                  <button
+                    type="button"
+                    onClick={() => removeImageInput(index)}
+                    className="px-2 py-1 bg-red-500 text-white rounded-md hover:bg-red-400"
+                  >
+                    Remove Photo
+                  </button>
+                )}
+              </div>
+            ))}
+            {photos.length < 5 && (
+              <button
+                type="button"
+                onClick={addImageInput}
+                className="mt-4 px-4 py-2 bg-primary text-white font-semibold rounded-lg shadow-md hover:bg-primary-dark"
+              >
+                Add Another Image
+              </button>
+            )}
+          </div>
+
           {/* Amenities */}
           <div className="col-span-2 flex justify-center">
             <div className="w-1/2">
@@ -379,6 +454,7 @@ export const ListingForm = () => {
                 style={{
                   border: "2px solid #ccc",
                   borderRadius: "30px",
+                  height: 255,
                 }}
               >
                 <div className="grid grid-cols-3 gap-4">
@@ -410,28 +486,10 @@ export const ListingForm = () => {
               </div>
             </div>
           </div>
-
-          <h2>Add Images</h2>
-          {photos.map((photo, index) => (
-            <div key={index}>
-              <label>Image {index + 1} URL: </label>
-              <input
-                type="text"
-                value={photo.link}
-                onChange={(e) => handlePhotoChange(index, e.target.value)}
-                placeholder="Enter image URL"
-                className="text-sm font-medium text-gray-900 text-center"
-              />
-            </div>
-          ))}
-          {photos.length < 5 && (
-            <button type="button" onClick={addImageInput}>
-              Add Image
-            </button>
-          )}
         </div>
 
         {/* Submit Button */}
+
         <div className="text-center mt-6">
           <button
             type="submit"
@@ -440,9 +498,8 @@ export const ListingForm = () => {
             Submit
           </button>
         </div>
-        <div>
-      </div>
       </form>
     </div>
   );
 };
+export default ListingForm;
